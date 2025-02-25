@@ -5,6 +5,10 @@ const Calender = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
 
   // Update current time every minute
   useEffect(() => {
@@ -23,13 +27,13 @@ const Calender = () => {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  // Calculate days in the selected month and the weekday of the first day
+  // Calculate days in selected month and the weekday of the first day
   const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
   const startDay = new Date(selectedYear, selectedMonth, 1).getDay();
 
   // Build calendar cells
   let calendarCells = [];
-  // Add empty cells for days before the first of the month
+  // Add empty cells for days before the first day of the month
   for (let i = 0; i < startDay; i++) {
     calendarCells.push(null);
   }
@@ -38,7 +42,7 @@ const Calender = () => {
     calendarCells.push(day);
   }
 
-  // Group cells into weeks (arrays of 7)
+  // Group cells into weeks (rows of 7)
   const weeks = [];
   for (let i = 0; i < calendarCells.length; i += 7) {
     weeks.push(calendarCells.slice(i, i + 7));
@@ -51,13 +55,40 @@ const Calender = () => {
     yearOptions.push(year);
   }
 
+  // Handle clicking on a valid day cell
+  const handleDayClick = (day) => {
+    if (day) {
+      setSelectedDay(day);
+      setShowModal(true);
+    }
+  };
+
+  // Handle form submission for scheduling event
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Process the event details (for example, log or save them)
+    console.log("Event Scheduled:", {
+      date: `${monthNames[selectedMonth]} ${selectedDay}, ${selectedYear}`,
+      title: eventTitle,
+      description: eventDescription,
+    });
+    // Reset and close the modal
+    setEventTitle("");
+    setEventDescription("");
+    setShowModal(false);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="calender-container">
       <div className="calender-header">
         <h2>Calendar</h2>
         <div className="time-icon">{timeIcon}</div>
       </div>
-      
+
       {/* Month and Year Filter */}
       <div className="filter-container">
         <select
@@ -100,13 +131,54 @@ const Calender = () => {
             {weeks.map((week, weekIndex) => (
               <tr key={weekIndex}>
                 {week.map((cell, cellIndex) => (
-                  <td key={cellIndex}>{cell ? cell : ""}</td>
+                  <td
+                    key={cellIndex}
+                    onClick={() => handleDayClick(cell)}
+                    className={cell ? "clickable" : ""}
+                  >
+                    {cell ? cell : ""}
+                  </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Modal Popup for Scheduling Event */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>
+              Schedule Event on {monthNames[selectedMonth]} {selectedDay}, {selectedYear}
+            </h3>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Event Title:</label>
+                <input
+                  type="text"
+                  value={eventTitle}
+                  onChange={(e) => setEventTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Event Description:</label>
+                <textarea
+                  value={eventDescription}
+                  onChange={(e) => setEventDescription(e.target.value)}
+                ></textarea>
+              </div>
+              <div className="modal-actions">
+                <button type="submit">Save</button>
+                <button type="button" onClick={closeModal}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
