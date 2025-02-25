@@ -1,0 +1,49 @@
+/* Calender.css */
+
+/* Container for the entire calendar component */
+.calender-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Header styling with a dynamic time icon */
+  .calender-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .calender-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .time-icon {
+    font-size: 2rem;
+  }
+  
+  /* Calendar table styling */
+  .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .calendar-table th,
+  .calendar-table td {
+    padding: 10px;
+    border: 1px solid #eee;
+  }
+  
+  .calendar-table th {
+    background-color: #f2f2f2;
+    color: #666;
+  }
+  
