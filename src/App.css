@@ -10,62 +10,10 @@ body {
   background: #f9f9f9;
 }
 
-/* Nav bar container with gradient background */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #3498db, #8e44ad);
-  padding: 10px 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-}
-
-/* Branding title */
-nav h1 {
-  font-size: 1.8rem;
-  color: #fff;
-  margin-right: auto;
-}
-
-/* Container for navigation links */
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-
-/* Nav link styling */
-nav a {
-  font-size: 1rem;
-  color: #ecf0f1;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* Hover and active link effect */
-nav a:hover,
-nav a.active {
-  background: rgba(255, 255, 255, 0.2);
-  color: #f1c40f;
-}
 
 /* Error message styling */
 .error {
   text-align: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-  }
-}
+

@@ -6,13 +6,6 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #ecf0f1;
-  padding: 20px;
-  color: #2c3e50;
-}
-
 .content {
   max-width: 800px;
   margin: 40px auto;
@@ -55,44 +48,6 @@ body {
     overflow: hidden;
   }
   
-  /* Background ticker styling */
-  .background-ticker {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px; /* Adjust height as needed */
-    background: #f0f0f0;
-    z-index: -1; /* Places it behind the main content */
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  /* The ticker content (dates) */
-  .ticker-content {
-    display: inline-block;
-    white-space: nowrap;
-    animation: tickerAnimation 20s linear infinite;
-  }
-  
-  /* Styling for each date */
-  .ticker-content span {
-    display: inline-block;
-    padding: 0 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  /* Keyframes for the scrolling effect */
-  @keyframes tickerAnimation {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
   
   /* Main content styling */
   .content {

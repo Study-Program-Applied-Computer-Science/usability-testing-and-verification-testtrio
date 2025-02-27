@@ -2,21 +2,21 @@ import './home.css';
 
 const Home = () => {
   // Generate date strings from "01" to "31"
-  const dates = Array.from({ length: 31 }, (_, i) =>
+  /* const dates = Array.from({ length: 31 }, (_, i) =>
     String(i + 1).padStart(2, '0')
-  );
+  ); */
 
   return (
     <div className="home-container">
       {/* Background ticker */}
-      <div className="background-ticker">
+      {/* <div className="background-ticker">
         <div className="ticker-content">
           {dates.map(date => (
             <span key={date}>{date}</span>
           ))}
         </div>
       </div>
-
+ */}
       {/* Main content */}
       <div className="content">
         <h1>Welcome to our</h1>
