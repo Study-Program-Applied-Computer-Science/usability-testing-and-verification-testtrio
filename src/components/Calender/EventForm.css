@@ -1,0 +1,29 @@
+.event-tag {
+    background: #3498db;
+    color: #fff;
+    padding: 3px 5px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
