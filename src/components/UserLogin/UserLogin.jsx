@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./Auth.css";
 
 const UserLogin = () => {
+  const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -49,12 +52,9 @@ const UserLogin = () => {
 
   return (
     <div className="auth-container">
-      {/* Left Side - Image */}
       <div className="auth-left">
-        <img src="/assets/login-image.png" alt="Login Illustration" />
+      <img src="/assets/login.svg" alt="Login Illustration" />
       </div>
-      
-      {/* Right Side - Login Form */}
       <div className="auth-right">
         <div className="auth-box">
           {forgotPassword ? (
