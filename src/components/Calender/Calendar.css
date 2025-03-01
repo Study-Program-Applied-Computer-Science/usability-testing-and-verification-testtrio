@@ -1,0 +1,63 @@
+/* Calendar Container (Small & Centered) */
+.calendar-container {
+  width: 80%;
+  max-width: 1300px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Center the FullCalendar Grid */
+.fc {
+  font-family: Arial, sans-serif;
+}
+
+/* Move Prev/Next Behind Title */
+
+
+.fc .fc-toolbar-title {
+    font-size: 30px;
+    margin: 0px;
+}
+
+.fc-toolbar.fc-header-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fc-toolbar-chunk:first-child {
+  position: absolute;
+  left: 0;
+}
+
+.fc-toolbar-chunk:nth-child(2) {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.fc-toolbar-chunk:last-child {
+  position: absolute;
+  right: 0;
+}
+
+/* Calendar Grid Styling */
+.fc-daygrid-day {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.fc-daygrid-day:hover {
+  background: #eaf3ff;
+}
+
+.fc-event {
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px;
+}
