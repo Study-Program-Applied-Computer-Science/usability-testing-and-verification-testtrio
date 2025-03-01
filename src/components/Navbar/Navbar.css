@@ -1,52 +1,88 @@
 /* Nav bar container with gradient background */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(90deg, #3498db, #3D3A71);
-    padding: 10px 45px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #3498db, #3D3A71);
+  padding: 10px 45px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+/* Branding title */
+nav h1 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-right: auto;
+}
+
+/* Container for navigation links */
+.nav-links {
+  display: flex;
+  gap: 50px;
+}
+
+/* Nav link styling */
+nav a {
+  font-size: 1rem;
+  color: #ecf0f1;
+  text-decoration: none;
+  padding: 8px 12px;  
+}
+
+/* Hover and active link effect */
+nav a:hover,
+nav a.active {    
+  border-bottom: 1px solid #ffffff;
+}
+  
+/* Navigation buttons (Login & Sign Up) */
+.nav-button1 {
+  font-size: 1rem;
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+  padding: 7px 17px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-button2 {
+  font-size: 1rem;
+  color: #3D3A71;
+  background: white;
+  border: 2px solid white;
+  padding: 7px 17px;
+  border-radius: 10px;
+  cursor: pointer;
+  
+}
+
+.nav-button1:hover {
+ 
+  color: #3498db;
+}
+
+.nav-button2:hover {
+  background: white;
+  color: #3498db;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
   }
   
-  /* Branding title */
-  nav h1 {
-    font-size: 1.8rem;
-    color: #fff;
-    margin-right: auto;
-  }
-  
-  /* Container for navigation links */
   .nav-links {
-    display: flex;
-    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
   }
   
-  /* Nav link styling */
-  nav a {
-    font-size: 1rem;
-    color: #ecf0f1;
-    text-decoration: none;
-    padding: 8px 12px;  
-   
+  .nav-button {
+    width: 100%;
+    text-align: center;
   }
-  
-  /* Hover and active link effect */
-  nav a:hover,
-  nav a.active {    
-    border-bottom: 1px solid #ffffff;
-  }
-    
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .nav-links {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }}
+}

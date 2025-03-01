@@ -15,19 +15,21 @@ const Navbar = () => {
           Create Event
         </NavLink>
         <button
-          className="nav-button"
-          data-testid="UserLogin_Button"
-          onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
-        >
-          Login
-        </button>
-        <button
-          className="nav-button"
+          className="nav-button1"
           data-testid="UserSignUp_Button"
           onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
         >
           Sign Up
         </button>
+
+        <button
+          className="nav-button2"
+          data-testid="UserLogin_Button"
+          onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
+        >
+          Login
+        </button>
+        
       </div>
     </nav>
   );
