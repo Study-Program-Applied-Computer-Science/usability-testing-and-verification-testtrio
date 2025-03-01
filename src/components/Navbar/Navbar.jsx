@@ -14,12 +14,15 @@ const Navbar = () => {
         <NavLink data-testid="Calender_Link" to="/calender">
           Create Event
         </NavLink>
-        <button
+      </div>
+
+      <div className="authButtons">
+      <button
           className="nav-button1"
           data-testid="UserSignUp_Button"
           onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
         >
-          Sign Up
+          Register
         </button>
 
         <button
@@ -29,7 +32,6 @@ const Navbar = () => {
         >
           Login
         </button>
-        
       </div>
     </nav>
   );

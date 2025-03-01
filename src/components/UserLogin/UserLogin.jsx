@@ -59,7 +59,7 @@ const UserLogin = () => {
   return (
     <div className="auth-container">
       <div className="auth-left">
-       <img src="/assets/login.svg" alt="Login Illustration" />
+       <img src="src\Assets\login.svg" alt="Login Illustration" />
       </div>
       <div className="auth-right">
         <div className="auth-box">
