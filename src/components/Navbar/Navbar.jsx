@@ -17,9 +17,16 @@ const Navbar = () => {
         <button
           className="nav-button"
           data-testid="UserLogin_Button"
-          onClick={() => navigate("/UserLogin")}
+          onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
         >
-          Sign In
+          Login
+        </button>
+        <button
+          className="nav-button"
+          data-testid="UserSignUp_Button"
+          onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
+        >
+          Sign Up
         </button>
       </div>
     </nav>

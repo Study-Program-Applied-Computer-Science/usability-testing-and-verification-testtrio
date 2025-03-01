@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Auth.css";
 
 const UserLogin = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +13,12 @@ const UserLogin = () => {
   });
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
+
+  useEffect(() => {
+    if (location.state && location.state.isSignUp !== undefined) {
+      setIsSignUp(location.state.isSignUp);
+    }
+  }, [location.state]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,7 +59,7 @@ const UserLogin = () => {
   return (
     <div className="auth-container">
       <div className="auth-left">
-      <img src="/assets/login.svg" alt="Login Illustration" />
+       <img src="/assets/login.svg" alt="Login Illustration" />
       </div>
       <div className="auth-right">
         <div className="auth-box">
