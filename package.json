@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.15",
@@ -16,7 +17,6 @@
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
     "axios": "^1.7.9",
-    "json-server": "^1.0.0-beta.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
@@ -39,6 +39,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "jsdom": "^26.0.0",
+    "json-server": "^1.0.0-beta.3",
     "vite": "^6.1.1",
     "vitest": "^3.0.7"
   }
