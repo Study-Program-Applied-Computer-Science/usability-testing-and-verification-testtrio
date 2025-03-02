@@ -1,28 +1,28 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import './Navbar.css';
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav data-testid="main_nav">
-      <h1 data-testid="brandName">EventPlanner</h1>
+    <nav className="navbar-container" data-testid="main_nav">
+      <h1 className="navbar-brand" data-testid="brandName">PlanD</h1>
       <div className="nav-links">
         <NavLink data-testid="Home_Link" to="/" end>
           Home
-        </NavLink>               
+        </NavLink>
         <NavLink data-testid="Calender_Link" to="/calender">
-          Create Event
+          Create Plan
         </NavLink>
       </div>
 
-      <div className="authButtons">
-      <button
+      <div className="auth-buttons">
+        <button
           className="nav-button1"
           data-testid="UserSignUp_Button"
           onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
         >
-          Register
+          Sign Up
         </button>
 
         <button

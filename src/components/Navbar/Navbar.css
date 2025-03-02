@@ -1,46 +1,48 @@
-/* Nav bar container with gradient background */
-nav {
+/* Navbar container */
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #3498db, #3D3A71);
-  padding: 10px 45px;
+  background-color: #3f2d68;
+  padding: 12px 60px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
+  width: 100%;
 }
 
 /* Branding title */
-nav h1 {
-  font-size: 1.8rem;
-  color: #fff;
-  margin-right: auto;
+.navbar-brand {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
 }
 
-/* Container for navigation links */
+/* Navigation links container */
 .nav-links {
   display: flex;
-  gap: 50px;
+  gap: 40px;
   justify-content: center;
   flex: 1;
   font-weight: bold;
 }
 
-/* Nav link styling */
-nav a {
+/* Styling for navigation links */
+.nav-links a {
   font-size: 1rem;
-  color: #ecf0f1;
+  color: white;
   text-decoration: none;
-  padding: 8px 12px;  
+  padding: 8px 12px;
+  transition: 0.3s ease-in-out;
 }
 
-/* Hover and active link effect */
-nav a:hover,
-nav a.active {    
-  border-bottom: 1px solid #ffffff;
+/* Hover and active effects */
+.nav-links a:hover,
+.nav-links a.active {
+  border-bottom: 2px solid white;
 }
-  
-/* Navigation buttons container */
-nav div:last-child {
+
+/* Buttons container */
+.auth-buttons {
   display: flex;
   gap: 15px;
 }
@@ -60,13 +62,14 @@ nav div:last-child {
 }
 
 .nav-button1:hover {
-  color: #3498db;
+  background-color: white;
+  color: #3f2d68;
 }
 
 /* Login Button */
 .nav-button2 {
   font-size: 1rem;
-  color: #3D3A71;
+  color: #3f2d68;
   background: white;
   border: 2px solid white;
   padding: 12px 17px;
@@ -77,31 +80,25 @@ nav div:last-child {
 }
 
 .nav-button2:hover {
-  background: white;
-  color: #3498db;
+  background: #ddd;
+  color: #3f2d68;
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
-  nav {
+  .navbar-container {
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    padding: 10px 30px;
   }
-  
+
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
   }
-  
-  nav div:last-child {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .nav-button1, .nav-button2 {
-    width: 100%;
-    text-align: center;
+
+  .auth-buttons {
+    margin-top: 10px;
   }
 }
