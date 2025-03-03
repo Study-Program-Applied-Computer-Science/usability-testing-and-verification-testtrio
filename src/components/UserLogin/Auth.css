@@ -87,3 +87,117 @@ p {
 p:hover {
   text-decoration: underline;
 }
+
+
+/* Animating the left image (calendar ticking) */
+@keyframes tickEffect {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.auth-left img {
+  animation: tickEffect 3s infinite ease-in-out;
+}
+
+/* Floating notifications */
+@keyframes floatUp {
+  0% { transform: translateY(0px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+.notification {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  background: #ff9800;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: floatUp 3s infinite ease-in-out;
+}
+
+/* Adjust positions for multiple notifications */
+
+
+.notification:nth-child(2) {
+  top: 50%;
+  left: 4%;
+  width: 170px;
+  background-color: orange;
+}
+
+.notification:nth-child(3) {
+  top: 40%;
+  left: 20%;
+  width: 200px;
+  background-color: green;
+}
+
+.notification:nth-child(4) {
+  top: 70%;
+  left: 30%;
+  width: 200px;
+  background-color: blue;
+}
+
+
+/* Fade-in effect for login box */
+.auth-box {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Floating animation */
+@keyframes floatUp {
+  0% { transform: translateY(0px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Button hover animation */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ✅ Password Input Container */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ✅ Password Field */
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+/* ✅ Eye Icon */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #333;
+}

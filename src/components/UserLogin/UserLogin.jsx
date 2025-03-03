@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Auth.css";
 
 const API_URL = "http://localhost:3001/users";
@@ -17,6 +18,8 @@ const UserLogin = () => {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false); 
 
   useEffect(() => {
     if (location.state?.isSignUp !== undefined) {
@@ -108,7 +111,12 @@ const UserLogin = () => {
     <div className="auth-container">
       <div className="auth-left">
         <img src="src\Assets\login.svg" alt="Login Illustration" />
+        <div className="notification">📅 Meeting at 10 AM</div>
+        <div className="notification" style={{ top: "20%", right: "10%" }}>⏰ Task Reminder</div>
+        <div className="notification" style={{ top: "30%", right: "15%" }}>🔔 New Event Added</div>
       </div>
+
+
       <div className="auth-right">
         <div className="auth-box">
           {isLoggedIn ? (
@@ -144,13 +152,20 @@ const UserLogin = () => {
                 value={formData.username}
                 onChange={handleInputChange}
               />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+            <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+
               <button onClick={handleAuth}>{isSignUp ? "Sign Up" : "Sign In"}</button>
               <p onClick={() => setIsSignUp(!isSignUp)}>
                 {isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
