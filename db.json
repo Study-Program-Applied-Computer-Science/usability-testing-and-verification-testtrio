@@ -29,6 +29,18 @@
       "username": "arvind",
       "email": "dummy145@gmail.com",
       "password": "arvind"
+    },
+    {
+      "id": "0bc6",
+      "username": "Arvind",
+      "email": "arvindaru6287@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "0f97",
+      "username": "Arvind",
+      "email": "Nobody@gmail.com",
+      "password": "Arvind123"
     }
   ]
 }

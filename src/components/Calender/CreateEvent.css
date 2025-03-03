@@ -1,0 +1,105 @@
+/* Background overlay */
+.create-event-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Popup container */
+  .create-event-container {
+    background: white;
+    padding: 70px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 650px;
+    position: relative;
+  }
+  /* Back arrow (small transparent left icon) */
+.create-event-back {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 24px;
+    height: 24px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M15.41 16.58L10.83 12l4.58-4.58L14 6l-6 6 6 6z"/></svg>') no-repeat center;
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0.5; /* Transparent look */
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .create-event-back:hover {
+    opacity: 1; /* Fully visible on hover */
+  }
+  
+  
+  /* Heading */
+  .create-event-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  /* Input fields */
+  .create-event-label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .create-event-input,
+  .create-event-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  
+  .create-event-input:focus,
+  .create-event-textarea:focus {
+    outline: none;
+    border-color: #7a5af5;
+  }
+  
+  /* Read-only input (Date & Time) */
+  .create-event-input.read-only {
+    background: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  /* Submit Button */
+  .create-event-submit {
+    width: 100%;
+    background: #7a5af5;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .create-event-submit:hover {
+    background: #6a4de5;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .create-event-container {
+      width: 90%;
+    }
+  }
+  
