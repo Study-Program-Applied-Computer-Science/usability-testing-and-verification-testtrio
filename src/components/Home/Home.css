@@ -6,6 +6,7 @@
   min-height: 100vh;
   background-color: rgba(255, 249, 249,1);
   padding: 30px 0; /* Reduce top and bottom padding */
+  margin: 0;
 }
 
 .content-wrapper {
