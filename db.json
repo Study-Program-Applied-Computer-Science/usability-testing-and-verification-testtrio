@@ -1,1 +1,34 @@
-{}
+{
+  "users": [
+    {
+      "id": "1935",
+      "username": "sai",
+      "email": "mohithtummala.mt@gmail.com",
+      "password": "sai123"
+    },
+    {
+      "id": "525c",
+      "username": "Mohith.Tummala",
+      "email": "dummy123@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "685",
+      "username": "Sebastian",
+      "email": "dummy124@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "611b",
+      "username": "mohith",
+      "email": "sai@gmail.com",
+      "password": "mohith"
+    },
+    {
+      "id": "fa9b",
+      "username": "arvind",
+      "email": "dummy145@gmail.com",
+      "password": "arvind"
+    }
+  ]
+}

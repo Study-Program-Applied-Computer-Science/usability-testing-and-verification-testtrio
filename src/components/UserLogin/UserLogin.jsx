@@ -2,23 +2,37 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Auth.css";
 
+const API_URL = "http://localhost:3001/users";
+
 const UserLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isSignUp, setIsSignUp] = useState(false);
+  
+  const [isSignUp, setIsSignUp] = useState(location.state?.isSignUp || false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("isLoggedIn")) || false
+  );
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const [forgotPassword, setForgotPassword] = useState(false);
-  const [resetEmail, setResetEmail] = useState("");
 
   useEffect(() => {
-    if (location.state && location.state.isSignUp !== undefined) {
+    if (location.state?.isSignUp !== undefined) {
       setIsSignUp(location.state.isSignUp);
     }
   }, [location.state]);
+
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/UserLogin"); // Redirect to login if logged out
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,55 +40,91 @@ const UserLogin = () => {
 
   const handleAuth = async (e) => {
     e.preventDefault();
-    const url = isSignUp ? "/api/users" : "/api/login";
-    const method = "POST";
-
     try {
-      const response = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error("Failed to fetch users");
+  
       const data = await response.json();
-      alert(data.message);
+      const users = data.users ? data.users : data;
+      console.log("Fetched Users:", users);
+  
+      if (isSignUp) {
+        if (users.some((user) => user.email.toLowerCase() === formData.email.toLowerCase())) {
+          alert("Email is already registered! Please log in.");
+          navigate("/UserLogin", { state: { isSignUp: false } });
+          return;
+        }
+  
+        await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+  
+        alert("Sign Up Successful! Please Log In.");
+        setFormData({ username: "", email: "", password: "" });
+        setIsSignUp(false);
+        navigate("/UserLogin", { state: { isSignUp: false } });
+  
+      } else {
+        if (!formData.username.trim() || !formData.password.trim()) {
+          alert("Please enter both username and password.");
+          return;
+        }
+  
+        const user = users.find((u) =>
+          u.username.toLowerCase().trim() === formData.username.toLowerCase().trim() &&
+          u.password.trim() === formData.password.trim()
+        );
+  
+        if (user) {
+          alert("Login Successful!");
+          localStorage.setItem("isLoggedIn", JSON.stringify(true));
+          localStorage.setItem("loggedInUser", JSON.stringify(user));
+          setIsLoggedIn(true);
+          navigate("/"); // Redirect to home
+          window.location.reload(); // ✅ Force reload to update Navbar immediately
+        } else {
+          alert("Invalid username or password!");
+        }
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during authentication:", error);
+      alert("An error occurred while processing your request.");
     }
   };
-
-  const handleForgotPassword = async () => {
-    try {
-      const response = await fetch(`/api/reset-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: resetEmail }),
-      });
-      const data = await response.json();
-      alert(data.message);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("loggedInUser");
+    alert("Logged out successfully!");
+    navigate("/UserLogin", { replace: true });
+    window.location.reload(); // ✅ Force reload to update UI immediately
   };
+  
 
   return (
     <div className="auth-container">
       <div className="auth-left">
-       <img src="src\Assets\login.svg" alt="Login Illustration" />
+        <img src="src\Assets\login.svg" alt="Login Illustration" />
       </div>
       <div className="auth-right">
         <div className="auth-box">
-          {forgotPassword ? (
-            <>
-              <h2>Reset Password</h2>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={resetEmail}
-                onChange={(e) => setResetEmail(e.target.value)}
-              />
-              <button onClick={handleForgotPassword}>Reset Password</button>
-              <button onClick={() => setForgotPassword(false)}>Back</button>
-            </>
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: "orange",
+                color: "white",
+                padding: "10px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Logout
+            </button>
           ) : (
             <>
               <h2>{isSignUp ? "Sign Up" : "Sign In"}</h2>
@@ -105,7 +155,6 @@ const UserLogin = () => {
               <p onClick={() => setIsSignUp(!isSignUp)}>
                 {isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
               </p>
-              <p onClick={() => setForgotPassword(true)}>Forgot Password?</p>
             </>
           )}
         </div>

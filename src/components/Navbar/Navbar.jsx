@@ -1,8 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear(); // ✅ Clears all session data
+    setIsLoggedIn(false); // ✅ Updates login state
+    navigate("/UserLogin", { replace: true }); // ✅ Redirect to login page
+  };
 
   return (
     <nav className="navbar-container" data-testid="main_nav">
@@ -17,21 +23,33 @@ const Navbar = () => {
       </div>
 
       <div className="auth-buttons">
-        <button
-          className="nav-button1"
-          data-testid="UserSignUp_Button"
-          onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
-        >
-          Sign Up
-        </button>
+        {isLoggedIn ? (
+          <button
+            className="logout-button"
+            onClick={handleLogout}
+            style={{ backgroundColor: "orange", color: "white", padding: "10px", border: "none", borderRadius: "5px", cursor: "pointer" }}
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <button
+              className="nav-button1"
+              data-testid="UserSignUp_Button"
+              onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
+            >
+              Sign Up
+            </button>
 
-        <button
-          className="nav-button2"
-          data-testid="UserLogin_Button"
-          onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
-        >
-          Login
-        </button>
+            <button
+              className="nav-button2"
+              data-testid="UserLogin_Button"
+              onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
+            >
+              Login
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
