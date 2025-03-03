@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Footer from "../Footer/Footer";
 import "./Auth.css";
 
 const API_URL = "http://localhost:3001/users";
@@ -174,7 +175,9 @@ const UserLogin = () => {
           )}
         </div>
       </div>
+      <footer />
     </div>
+    
   );
 };
 
