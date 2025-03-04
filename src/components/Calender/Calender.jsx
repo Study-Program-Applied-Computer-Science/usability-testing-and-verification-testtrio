@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadEvents, addEvent } from "../../redux/store"; // Import Redux actions
+import { loadEvents } from "../../redux/store";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -10,27 +10,44 @@ import "./Calendar.css";
 
 const CalendarView = () => {
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.events); // Get events from Redux state
+  const events = useSelector((state) => state.events);
   const [showEventForm, setShowEventForm] = useState(false);
   const [selectedDateTime, setSelectedDateTime] = useState({ date: "", time: "" });
+  const [editingEvent, setEditingEvent] = useState(null); // Track editing event
 
-  // Load events from JSON Server when the component mounts
   useEffect(() => {
     dispatch(loadEvents());
   }, [dispatch]);
 
   const handleDateClick = (info) => {
-    const date = info.dateStr.split("T")[0];
-    const time = info.dateStr.includes("T") ? info.dateStr.split("T")[1].slice(0, 5) : "00:00";
-
-    setSelectedDateTime({ date, time });
+    const selectedDate = info.dateStr.split("T")[0];
+    const selectedTime = info.dateStr.includes("T") 
+      ? info.dateStr.split("T")[1].slice(0, 5) 
+      : "00:00"; //  Extract time or default to 00:00
+  
+    setSelectedDateTime({ date: selectedDate, time: selectedTime });
+    setEditingEvent(null); //  Reset to create mode
     setShowEventForm(true);
   };
+  
 
-  const addNewEvent = (newEvent) => {
-    dispatch(addEvent(newEvent)); // Saves event to Redux & JSON Server
-    setShowEventForm(false);
+  const handleEventClick = (clickInfo) => {
+    const eventStart = new Date(clickInfo.event.startStr);
+    const eventTime = eventStart.toTimeString().slice(0, 5); //  Extracts HH:MM format
+  
+    setEditingEvent({
+      id: clickInfo.event.id,
+      title: clickInfo.event.title,
+      start: clickInfo.event.startStr, 
+      time: eventTime, //  Set correct time
+      description: clickInfo.event.extendedProps.description || "",
+      attendees: clickInfo.event.extendedProps.attendees || "",
+      createdBy: clickInfo.event.extendedProps.createdBy,
+    });
+  
+    setShowEventForm(true);
   };
+  
 
   return (
     <div className="calendar-container">
@@ -44,7 +61,8 @@ const CalendarView = () => {
         }}
         selectable={true}
         dateClick={handleDateClick}
-        events={events} // Load events from Redux store
+        eventClick={handleEventClick} //  Handle event click
+        events={events}
         eventTimeFormat={{
           hour: "numeric",
           minute: "2-digit",
@@ -57,7 +75,7 @@ const CalendarView = () => {
           isOpen={showEventForm}
           onClose={() => setShowEventForm(false)}
           selectedDateTime={selectedDateTime}
-          addEvent={addNewEvent} // Uses Redux instead of local state
+          editingEvent={editingEvent} //  Pass selected event for editing
         />
       )}
     </div>
