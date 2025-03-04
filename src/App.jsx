@@ -5,9 +5,12 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import Home from "./components/Home/Home.jsx";
 import Calender from "./components/Calender/Calender.jsx";
 import UserLogin from "./components/UserLogin/UserLogin.jsx";
+import { useDispatch } from "react-redux";
+import { loadEvents } from "./redux/store";
 
 const App = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("isLoggedIn")) || false
   );
@@ -28,6 +31,11 @@ const App = () => {
       navigate("/UserLogin", { replace: true });
     }
   }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
+    dispatch(loadEvents()); // Fetch events on load
+  }, [dispatch]);
+
 
   return (
     <div data-testid="App" className="App">

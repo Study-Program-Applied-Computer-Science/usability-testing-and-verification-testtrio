@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addEvent } from "../../redux/store"; // Import Redux action
 import "./CreateEvent.css";
 
-const CreateEvent = ({ isOpen, onClose, selectedDateTime, addEvent }) => {
+const CreateEvent = ({ isOpen, onClose, selectedDateTime }) => {
+  const dispatch = useDispatch();
   const [eventTitle, setEventTitle] = useState("");
   const [attendees, setAttendees] = useState("");
   const [description, setDescription] = useState("");
-  const [eventTime, setEventTime] = useState(selectedDateTime.time); 
+  const [eventTime, setEventTime] = useState(selectedDateTime.time);
 
-  
   useEffect(() => {
     setEventTime(selectedDateTime.time);
   }, [selectedDateTime]);
 
   if (!isOpen) return null;
 
-  
   const handleTimeChange = (e) => {
-    const timeValue = e.target.value; 
+    const timeValue = e.target.value;
     const [hours, minutes] = timeValue.split(":");
 
     if (minutes > 59) {
@@ -27,12 +28,10 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, addEvent }) => {
     setEventTime(timeValue);
   };
 
-  
   const disableKeyboardInput = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
   };
 
-  
   const handleSubmit = () => {
     if (!eventTitle.trim()) {
       alert("Event title is required!");
@@ -41,26 +40,20 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, addEvent }) => {
 
     const newEvent = {
       title: eventTitle,
-      start: `${selectedDateTime.date}T${eventTime}`, 
+      start: `${selectedDateTime.date}T${eventTime}`,
       description,
+      attendees,
     };
 
-    addEvent(newEvent);
+    dispatch(addEvent(newEvent)); // Save event to Redux & JSON Server
 
-    saveEventToDB(newEvent);
-
+    // Reset form fields after submission
     setEventTitle("");
     setAttendees("");
     setDescription("");
-    setEventTime(selectedDateTime.time); 
+    setEventTime(selectedDateTime.time);
 
     onClose();
-  };
-
-  const saveEventToDB = (event) => {
-    let storedEvents = JSON.parse(localStorage.getItem("events")) || [];
-    storedEvents.push(event);
-    localStorage.setItem("events", JSON.stringify(storedEvents));
   };
 
   return (
@@ -87,8 +80,8 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, addEvent }) => {
           type="time"
           className="create-event-input"
           value={eventTime}
-          onChange={handleTimeChange} 
-          onKeyDown={disableKeyboardInput} 
+          onChange={handleTimeChange}
+          onKeyDown={disableKeyboardInput}
         />
 
         <label className="create-event-label">Attendees</label>
@@ -109,7 +102,9 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, addEvent }) => {
           placeholder="Enter event details"
         ></textarea>
 
-        <button className="create-event-submit" onClick={handleSubmit}>Submit</button>
+        <button className="create-event-submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </div>
     </div>
   );

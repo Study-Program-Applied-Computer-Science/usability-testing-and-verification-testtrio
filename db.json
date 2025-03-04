@@ -31,16 +31,19 @@
       "password": "arvind"
     },
     {
-      "id": "0bc6",
-      "username": "Arvind",
-      "email": "arvindaru6287@gmail.com",
-      "password": "123"
-    },
+      "id": "7794",
+      "username": "neubin",
+      "email": "neubinsebastian01@gmail.com",
+      "password": "neubin123"
+    }
+  ],
+  "events": [
     {
-      "id": "0f97",
-      "username": "Arvind",
-      "email": "Nobody@gmail.com",
-      "password": "Arvind123"
+      "id": "24b4",
+      "title": "bday party",
+      "start": "2025-03-05T08:30",
+      "description": "hhdja adsadjnjd asdad asd.",
+      "attendees": "arvind@gmail.com"
     }
   ]
 }
