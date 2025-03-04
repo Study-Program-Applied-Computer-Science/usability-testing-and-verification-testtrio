@@ -37,22 +37,30 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime }) => {
       alert("Event title is required!");
       return;
     }
-
+  
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")); // Get current user
+  
+    if (!loggedInUser) {
+      alert("User not found! Please log in again.");
+      return;
+    }
+  
     const newEvent = {
       title: eventTitle,
       start: `${selectedDateTime.date}T${eventTime}`,
       description,
       attendees,
+      createdBy: loggedInUser.email, // ✅ Store creator's email
     };
-
-    dispatch(addEvent(newEvent)); // Save event to Redux & JSON Server
-
+  
+    dispatch(addEvent(newEvent)); // Saves to Redux & JSON Server
+  
     // Reset form fields after submission
     setEventTitle("");
     setAttendees("");
     setDescription("");
     setEventTime(selectedDateTime.time);
-
+  
     onClose();
   };
 

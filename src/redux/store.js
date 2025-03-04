@@ -16,9 +16,14 @@ const eventsSlice = createSlice({
 export const { setEvents, addEvent } = eventsSlice.actions;
 
 export const loadEvents = () => async (dispatch) => {
-  const events = await fetchEvents();
-  dispatch(setEvents(events));
-};
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!loggedInUser) return;
+  
+    const allEvents = await fetchEvents();
+    const userEvents = allEvents.filter(event => event.createdBy === loggedInUser.email); // ✅ Filter user-specific events
+  
+    dispatch(setEvents(userEvents));
+  };
 
 const store = configureStore({
   reducer: { events: eventsSlice.reducer },
