@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createNewEvent, updateExistingEvent, deleteExistingEvent } from "../../redux/store";
+import emailjs from "@emailjs/browser"; // Import EmailJS
 import "./CreateEvent.css";
 
 const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
@@ -42,6 +43,32 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
     setIsEditing(true);
   };
 
+
+//Function to send email notifications
+const sendEmailToAttendees = (eventData) => {
+  const emailsArray = attendees.split(",").map(email => email.trim()); // Convert comma-separated emails to array
+
+  emailsArray.forEach((email) => {
+    const templateParams = {
+      to_email: email,
+      event_title: eventData.title,
+      event_date: eventData.start.split("T")[0],
+      event_time: eventData.start.split("T")[1],
+      event_description: eventData.description,
+    };
+
+    emailjs
+      .send("service_6vt23rp", "template_p7jcw39", templateParams, "Ze0w0JPzUnSTMDqSE")
+      .then((response) => {
+        console.log("Email sent successfully:", response);
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+      });
+  });
+};
+
+
   const handleSubmit = async () => {
     if (!eventTitle.trim()) {
       alert("Event title is required!");
@@ -69,6 +96,7 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
     } else {
       console.log("Creating new event:", newEvent);
       dispatch(createNewEvent(newEvent)); //  Create event
+      sendEmailToAttendees(newEvent); // Send emails after creating an event
     }
   
     onClose();
