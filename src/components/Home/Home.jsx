@@ -19,6 +19,20 @@ const Home = () => {
             <h2 className="description">
               Stay organized effortlessly with the Personal Event Schedule App! Plan, track, and manage your events in an intuitive calendar view,
               complete with smart scheduling, email notifications, and seamless event editing all in a user-friendly interface.
+              <div className="buttons">
+              <button
+                className="btn-primary"
+                onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
+              >
+                Get Started
+              </button>
+              <button
+                className="btn-secondary"
+                onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
+              >
+                Access Now
+              </button>
+            </div>
             </h2>            
           </div>
         </div>
