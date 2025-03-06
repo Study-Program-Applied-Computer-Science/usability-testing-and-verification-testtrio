@@ -20,6 +20,9 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         <NavLink data-testid="Calender_Link" to="/calender">
           Create Plan
         </NavLink>
+        <NavLink data-testid="Events_Link" to="/Events">
+          Events
+        </NavLink>
       </div>
 
       <div className="auth-buttons">
