@@ -87,7 +87,7 @@ const UserLogin = () => {
           localStorage.setItem("loggedInUser", JSON.stringify(user));
           setIsLoggedIn(true);
           navigate("/"); // Redirect to home
-          window.location.reload(); // ✅ Force reload to update Navbar immediately
+          window.location.reload(); //  Force reload to update Navbar immediately
         } else {
           alert("Invalid username or password!");
         }
@@ -104,7 +104,7 @@ const UserLogin = () => {
     localStorage.removeItem("loggedInUser");
     alert("Logged out successfully!");
     navigate("/UserLogin", { replace: true });
-    window.location.reload(); // ✅ Force reload to update UI immediately
+    window.location.reload(); //  Force reload to update UI immediately
   };
   
 
