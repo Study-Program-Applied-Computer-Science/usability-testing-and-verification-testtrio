@@ -1,21 +1,39 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f5fc;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+ overflow: hidden;
 }
+
 
 .auth-container {
   display: flex;
+  flex: 1; 
   width: 100%;
   margin: 0;
   background: white;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
+
+
+.footer {
+  width: 100%;
+  padding: 10px;
+  background: #6a5acd;
+  color: white;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 
 .auth-left {
   width: 50%;
@@ -23,13 +41,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 40px;
 }
+
 
 .auth-left img {
   max-width: 80%;
   height: auto;
+  animation: tickEffect 3s infinite ease-in-out;
 }
+
 
 .auth-right {
   width: 50%;
@@ -45,9 +66,10 @@ body {
   max-width: 350px;
   text-align: center;
   background: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
 }
 
 h2 {
@@ -57,7 +79,7 @@ h2 {
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -65,130 +87,61 @@ input {
 
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #6a5acd;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: all 0.3s ease-in-out;
 }
 
 button:hover {
   background-color: #5a4ab0;
-}
-
-p {
-  margin-top: 10px;
-  cursor: pointer;
-  color: #6a5acd;
-}
-
-p:hover {
-  text-decoration: underline;
-}
-
-
-/* Animating the left image (calendar ticking) */
-@keyframes tickEffect {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-  75% { transform: rotate(-2deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.auth-left img {
-  animation: tickEffect 3s infinite ease-in-out;
-}
-
-/* Floating notifications */
-@keyframes floatUp {
-  0% { transform: translateY(0px); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(-20px); opacity: 0; }
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .notification {
   position: absolute;
-  top: 10%;
-  left: 5%;
-  background: #ff9800;
+  background: orange;
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 14px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: floatUp 3s infinite ease-in-out;
+  opacity: 0.9;
+  left: 18%;
+  width: 180px;
 }
-
-/* Adjust positions for multiple notifications */
-
 
 .notification:nth-child(2) {
-  top: 50%;
-  left: 4%;
-  width: 170px;
-  background-color: orange;
-}
-
-.notification:nth-child(3) {
   top: 40%;
-  left: 20%;
-  width: 160px;
+  left: 12%;
+  width: 180px;
   background-color: green;
 }
 
-.notification:nth-child(4) {
-  top: 70%;
-  left: 30%;
+.notification:nth-child(3) {
+  top: 50%;
+  left: 10%;
   width: 180px;
   background-color: blue;
 }
 
-
-/* Fade-in effect for login box */
-.auth-box {
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Floating animation */
-@keyframes floatUp {
-  0% { transform: translateY(0px); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(-20px); opacity: 0; }
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Button hover animation */
-button {
-  transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-
-/* ✅ Password Input Container */
 .password-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* ✅ Password Field */
 .password-container input {
   width: 100%;
-  padding-right: 40px; /* Space for the eye icon */
+  padding-right: 40px;
 }
 
-/* ✅ Eye Icon */
 .password-toggle {
   position: absolute;
   right: 10px;
@@ -200,4 +153,49 @@ button:hover {
 
 .password-toggle:hover {
   color: #333;
+}
+
+@keyframes tickEffect {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+@media screen and (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .auth-left, .auth-right {
+    width: 100%;
+  }
+
+  .auth-left {
+    padding: 20px;
+  }
+
+  .auth-right {
+    padding: 20px;
+  }
+
+  .notification {
+    left: 15% !important;
+    top: auto;
+    bottom: 10%;
+  }
 }
