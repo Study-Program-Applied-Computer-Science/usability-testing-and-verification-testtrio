@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import MyEvents from "./myEvents/MyEvents.jsx"; 
 import AllEvents from "./allEvents/AllEvents.jsx"; 
+import SearchFilter from "../SearchFilter/SearchFilter.jsx";
 
 const Events = () => {
-  const [activeTab, setActiveTab] = useState("myEvents");
+  const allEvents = useSelector((state) => state.events); // Get events from Redux
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [activeTab, setActiveTab] = useState("myEvents");  // ✅ Declare activeTab state
+
+  useEffect(() => {
+    if (allEvents.length > 0) {
+      setFilteredEvents(allEvents);
+    }
+  }, [allEvents]); // ✅ Only updates when events change
 
   return (
     <div className="events-container">
@@ -22,8 +32,16 @@ const Events = () => {
         </button>
       </div>
 
+      {/* Search Bar */}
+      <SearchFilter events={filteredEvents} setFilteredEvents={setFilteredEvents} />
+
+
       <div className="events-content">
-        {activeTab === "myEvents" ? <MyEvents /> : <AllEvents />}
+        {activeTab === "myEvents" ? (
+          <MyEvents events={filteredEvents} />
+        ) : (
+          <AllEvents events={filteredEvents} />
+        )}
       </div>
     </div>
   );

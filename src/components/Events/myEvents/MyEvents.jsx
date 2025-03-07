@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadEvents } from "../../../redux/store";
 import "./MyEvents.css";
 
-
-const MyEvents = () => {
+const MyEvents = ({ events }) => {  // Accept events as a prop
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  const events = useSelector((state) => state.events);
-
   useEffect(() => {
     if (loggedInUser) {
-      dispatch(loadEvents());
+      dispatch(loadEvents()); // ✅ Fetch events only once when user is logged in
     }
-  }, [dispatch, loggedInUser]);
+  }, [dispatch, loggedInUser]); // ✅ Only re-runs if logged-in user changes
+
+  // ✅ Filter only the logged-in user's events
+  const myEvents = loggedInUser
+    ? events.filter(event => event.createdBy === loggedInUser.username)
+    : [];
 
   return (
     <div className="events-list">
-    {events.length === 0 ? (
-      <p>No events found.</p>
-    ) : (
-      events.map((event) => (
-        <div key={event.id} className="event-card" onClick={() => navigate(`/events/${event.id}`)}>
-          <div className="event-content">
-            <h3>{event.title}</h3>
-            <p><span>Date:</span> {new Date(event.start).toLocaleString()}</p>
-            <p><span>Created by:</span> {event.createdBy}</p>
+      {myEvents.length === 0 ? (
+        <p>No events found.</p>
+      ) : (
+        myEvents.map((event) => (
+          <div key={event.id} className="event-card" onClick={() => navigate(`/events/${event.id}`)}>
+            <div className="event-content">
+              <h3>{event.title}</h3>
+              <p><span>Date:</span> {new Date(event.start).toLocaleString()}</p>
+              <p><span>Created by:</span> {event.createdBy}</p>
+            </div>
           </div>
-        </div>
-      ))
-    )}
- </div> 
- 
+        ))
+      )}
+    </div>
   );
 };
 
