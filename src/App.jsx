@@ -9,8 +9,8 @@ import Calender from "./components/Calender/Calender.jsx";
 import UserLogin from "./components/UserLogin/UserLogin.jsx";
 import Events from './components/Events/Events.jsx';
 import EventDetails from './components/Events/EventDetails.jsx';
-import MyEvents from './components/Events/myEvents/myEvents.jsx';
-import AllEvents from './components/Events/allEvents/allEvents.jsx';
+import MyEvents from './components/Events/myEvents/MyEvents.jsx';
+import AllEvents from './components/Events/allEvents/AllEvents.jsx';
 const App = () => {
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(
