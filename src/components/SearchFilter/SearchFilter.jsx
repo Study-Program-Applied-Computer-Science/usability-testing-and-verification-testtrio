@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi"; // Import search icon
+import "SearchFilter.css";
 
 const SearchFilter = ({ events = [], setFilteredEvents }) => {  
   const [searchTerm, setSearchTerm] = useState("");
