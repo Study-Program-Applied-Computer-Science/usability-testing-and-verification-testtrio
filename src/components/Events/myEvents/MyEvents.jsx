@@ -31,44 +31,39 @@ const MyEvents = () => {
 
   // Load user-specific events and apply filters
   useEffect(() => {
-    if (loggedInUser && allEvents.length > 0) {
-      const eventsCreatedByUser = allEvents.filter(event => event.createdBy === loggedInUser.email);
+    if (!allEvents || !loggedInUser) return;
 
-<<<<<<< HEAD
-      // Apply search and filter logic
-      const filteredEvents = eventsCreatedByUser.filter(event => {
-          const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+    // Filter events created by the logged-in user
+    const eventsCreatedByUser = allEvents.filter(event => event.userId === loggedInUser.id);
 
-          // Extract event hour in 12-hour format
-          const eventHour = new Date(event.start).getHours() % 12 || 12;
-          const eventPeriod = new Date(event.start).getHours() >= 12 ? "PM" : "AM";
-          
-          // Date Filtering Logic
-          const matchesDate = selectedDate 
-              ? new Date(event.start).toDateString() === selectedDate.toDateString() 
-              : true;
+    // Apply search and filter logic
+    const filteredEvents = eventsCreatedByUser.filter(event => {
+        const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-          const matchesTime = selectedTime ? eventHour === parseInt(selectedTime, 10) : true;
-          const matchesPeriod = selectedPeriod ? eventPeriod === selectedPeriod : true;
+        // Extract event hour in 12-hour format
+        const eventDate = new Date(event.start);
+        const eventHour = eventDate.getHours() % 12 || 12;
+        const eventPeriod = eventDate.getHours() >= 12 ? "PM" : "AM";
 
-          return matchesSearch && matchesTime && matchesPeriod && matchesDate;
-      });
+        // Date Filtering Logic
+        const matchesDate = selectedDate ? eventDate.toDateString() === selectedDate.toDateString() : true;
+        const matchesTime = selectedTime ? eventHour === parseInt(selectedTime, 10) : true;
+        const matchesPeriod = selectedPeriod ? eventPeriod === selectedPeriod : true;
 
-      if (userEvents.length !== filteredEvents.length) {
+        return matchesSearch && matchesTime && matchesPeriod && matchesDate;
+    });
+
+    // Only update state if the filtered list has changed
+    if (JSON.stringify(filteredEvents) !== JSON.stringify(userEvents)) {
         setUserEvents(filteredEvents);
         setDisplayedEvents(filteredEvents.slice(0, 5));
         setHasMore(filteredEvents.length > 5);
-=======
-      //It prevent re-render loops by checking if events have changed
-      if (JSON.stringify(userEvents) !==JSON.stringify(eventsCreatedByUser)) {
-        setUserEvents(eventsCreatedByUser);
-        setDisplayedEvents(eventsCreatedByUser.slice(0, 5));
-        setHasMore(eventsCreatedByUser.length > 5);
->>>>>>> e6b01c24eee6cc8e07e3745a2da530cac03075a1
-        setLoading(false);
-      }
     }
-  }, [allEvents, loggedInUser, searchTerm, selectedTime, selectedPeriod, selectedDate]);
+
+    setLoading(false);
+
+}, [allEvents, loggedInUser, searchTerm, selectedTime, selectedPeriod, selectedDate, userEvents]);
+
 
   // Fetch more events (pagination)
   const fetchMoreEvents = () => {
@@ -124,12 +119,9 @@ const MyEvents = () => {
 )}
 
       {loading ? (<h3>Loading events...</h3>) : (
-<<<<<<< HEAD
-        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh" }}>
-=======
+
         <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
           {/* React infinate scrolll*/}
->>>>>>> e6b01c24eee6cc8e07e3745a2da530cac03075a1
           <InfiniteScroll
             dataLength={displayedEvents.length}
             next={fetchMoreEvents}
