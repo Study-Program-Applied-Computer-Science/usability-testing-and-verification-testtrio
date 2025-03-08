@@ -5,9 +5,11 @@ const eventsSlice = createSlice({
   name: "events",
   initialState: [],
   reducers: {
-    setEvents: (state, action) => action.payload, // ✅ Set all events
+    setEvents: (state, action) => action.payload, 
     addEvent: (state, action) => {
-      state.push(action.payload);
+      if (action.payload && action.payload.id) {
+        state.push(action.payload);
+      }
     },
     editEvent: (state, action) => {
       return state.map((event) => (event.id === action.payload.id ? action.payload : event));
@@ -21,19 +23,29 @@ const eventsSlice = createSlice({
 export const { setEvents, addEvent, editEvent, removeEvent } = eventsSlice.actions;
 
 /**
- * ✅ Load all events from `db.json`
+ * ✅ Load only the events created by the logged-in user
  */
 export const loadEvents = () => async (dispatch) => {
   try {
     const events = await fetchEvents();
-    dispatch(setEvents(events)); // ✅ Store all events (both user and global)
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+      dispatch(setEvents([])); // If no user is logged in, don't load any events
+      return;
+    }
+
+    // ✅ Filter events before storing them
+    const userEvents = events.filter((event) => event.createdBy === loggedInUser.email);
+    dispatch(setEvents(userEvents));
   } catch (error) {
     console.error("Error fetching events:", error);
+    dispatch(setEvents([]));
   }
 };
 
 /**
- * ✅ Create and persist event
+ * ✅ Create & Persist Event
  */
 export const createNewEvent = (eventData) => async (dispatch) => {
   try {
@@ -48,21 +60,16 @@ export const createNewEvent = (eventData) => async (dispatch) => {
   }
 };
 
+
 /**
- * ✅ Update event and persist changes
+ * ✅ Update & Persist Event
  */
 export const updateExistingEvent = (eventData) => async (dispatch) => {
-  if (!eventData.id) {
-    console.error("Error: Cannot update event without an ID.");
-    return;
-  }
-
+  if (!eventData?.id) return;
   try {
     const updatedEvent = await updateEvent(eventData);
     if (updatedEvent?.id) {
       dispatch(editEvent(updatedEvent));
-    } else {
-      console.error("Error: Updated event does not have a valid ID.");
     }
   } catch (error) {
     console.error("Error updating event:", error);
@@ -70,14 +77,10 @@ export const updateExistingEvent = (eventData) => async (dispatch) => {
 };
 
 /**
- * ✅ Delete event from `db.json`
+ * ✅ Delete Event from Redux & DB
  */
 export const deleteExistingEvent = (eventId) => async (dispatch) => {
-  if (!eventId) {
-    console.error("Error: Cannot delete event without an ID.");
-    return;
-  }
-
+  if (!eventId) return;
   try {
     await deleteEvent(eventId);
     dispatch(removeEvent(eventId));

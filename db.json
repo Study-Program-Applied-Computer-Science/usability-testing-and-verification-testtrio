@@ -48,11 +48,14 @@
     },
     {
       "id": "b5c3",
-      "title": "scascsac",
+      "title": "Neu",
       "start": "2025-03-13T00:00",
       "description": "sCASCASC",
       "attendees": "mohithtummala.mt@gmail.com",
-      "createdBy": "mohithtummala.mt@gmail.com"
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Meeting"
+      ]
     },
     {
       "id": "0c19",
@@ -85,6 +88,121 @@
       "description": "",
       "attendees": "",
       "createdBy": "dummy145@gmail.com"
+    },
+    {
+      "id": "7039",
+      "title": "KT session",
+      "start": "2025-02-27T00:00",
+      "description": "ADF",
+      "attendees": "mohithtummala.mt@gmail.com",
+      "createdBy": "mohithtummala.mt@gmail.com"
+    },
+    {
+      "id": "9992",
+      "title": "Arvind Birthday",
+      "start": "2025-03-20T00:00",
+      "description": "",
+      "attendees": "",
+      "createdBy": "dummy145@gmail.com"
+    },
+    {
+      "id": "2874",
+      "title": "thi eve",
+      "start": "2025-03-31T08:00",
+      "description": "sdgdfsgsdg",
+      "attendees": "",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Important"
+      ]
+    },
+    {
+      "id": "bd15",
+      "title": "zgdshg",
+      "start": "2025-03-30T12:00",
+      "description": "",
+      "attendees": "",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Urgent"
+      ]
+    },
+    {
+      "id": "536a",
+      "title": "sfv",
+      "start": "2025-02-28T00:00",
+      "description": "",
+      "attendees": "",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Urgent"
+      ]
+    },
+    {
+      "id": "076e",
+      "title": "Holidays Planning",
+      "start": "2025-03-20T12:30",
+      "description": "savsdbv",
+      "attendees": "neubin",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Urgent"
+      ]
+    },
+    {
+      "id": "c1ee",
+      "title": "Meme Fix",
+      "start": "2025-02-27T10:00",
+      "description": "",
+      "attendees": "mohithtummala.mt@@gmail.com",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Urgent"
+      ]
+    },
+    {
+      "id": "7353",
+      "title": "bb",
+      "start": "2025-02-23T14:00",
+      "description": "",
+      "attendees": "sb",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Meeting"
+      ]
+    },
+    {
+      "id": "e68d",
+      "title": "his",
+      "start": "2025-02-27T09:30",
+      "description": "",
+      "attendees": "safasf",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        "Work"
+      ]
+    },
+    {
+      "id": "0ba2",
+      "title": "asfsfassaf",
+      "start": "2025-03-05T07:00",
+      "description": "",
+      "attendees": "",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        ""
+      ]
+    },
+    {
+      "id": "ab25",
+      "title": "rambi",
+      "start": "2025-03-04T06:00",
+      "description": "",
+      "attendees": "",
+      "createdBy": "mohithtummala.mt@gmail.com",
+      "tags": [
+        ""
+      ]
     }
   ]
 }

@@ -1,24 +1,20 @@
-const API_URL = "http://localhost:3001/events"; // JSON Server endpoint
+const API_URL = "http://localhost:3001/events";
 
-/**
- * ✅ Fetch all events from `db.json`
- */
+/*Fetch all events from `db.json`*/
 export const fetchEvents = async () => {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Failed to fetch events");
 
     const events = await response.json();
-    return Array.isArray(events) ? events : []; // Ensure it always returns an array
+    return Array.isArray(events) ? events : [];
   } catch (error) {
     console.error("Error fetching events:", error);
     return [];
   }
 };
 
-/**
- * ✅ Create a new event & store it in `db.json`
- */
+/*Create a new event & store it in `db.json`*/
 export const createEvent = async (eventData) => {
   try {
     const response = await fetch(API_URL, {
@@ -29,16 +25,14 @@ export const createEvent = async (eventData) => {
 
     if (!response.ok) throw new Error("Failed to create event");
 
-    return await response.json(); // ✅ Return the newly created event (including the ID)
+    return await response.json(); // 
   } catch (error) {
     console.error("Error creating event:", error);
     return null;
   }
 };
 
-/**
- * ✅ Update an existing event in `db.json`
- */
+/*Update an existing event in `db.json`*/
 export const updateEvent = async (eventData) => {
   if (!eventData.id) {
     console.error("Error: Event ID is missing for update.");
@@ -61,9 +55,7 @@ export const updateEvent = async (eventData) => {
   }
 };
 
-/**
- * ✅ Delete an event from `db.json`
- */
+/* ✅ Delete an event from `db.json`*/
 export const deleteEvent = async (eventId) => {
   if (!eventId) {
     console.error("Error: Event ID is missing for deletion.");

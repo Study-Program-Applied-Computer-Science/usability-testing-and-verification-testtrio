@@ -1,27 +1,25 @@
-/* Background overlay */
 .create-event-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
   }
   
-  /* Popup container */
   .create-event-container {
     background: white;
-    padding: 70px;
+    padding: 30px;
     border-radius: 16px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 650px;
+    width: 500px;
     position: relative;
   }
-  /* Back arrow (small transparent left icon) */
+
 .create-event-back {
     position: absolute;
     top: 18px;
@@ -33,16 +31,14 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
-    opacity: 0.5; /* Transparent look */
+    opacity: 0.5;
     transition: opacity 0.2s ease-in-out;
   }
   
   .create-event-back:hover {
-    opacity: 1; /* Fully visible on hover */
+    opacity: 1;
   }
-  
-  
-  /* Heading */
+
   .create-event-title {
     text-align: center;
     font-size: 20px;
@@ -50,7 +46,6 @@
     margin-bottom: 16px;
   }
   
-  /* Input fields */
   .create-event-label {
     font-size: 14px;
     color: #555;
@@ -74,13 +69,11 @@
     border-color: #7a5af5;
   }
   
-  /* Read-only input (Date & Time) */
   .create-event-input.read-only {
     background: #f5f5f5;
     cursor: not-allowed;
   }
   
-  /* Submit Button */
   .create-event-submit {
     width: 100%;
     background: #7a5af5;
@@ -96,10 +89,75 @@
     background: #6a4de5;
   }
   
-  /* Responsive Design */
+
   @media (max-width: 500px) {
     .create-event-container {
       width: 90%;
     }
   }
+
+
+  @media (max-width: 1024px) {
+    .create-event-container {
+        width: 85%;
+        padding: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .create-event-container {
+        width: 90%;
+        padding: 40px;
+    }
+
+    .create-event-title {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-event-container {
+        width: 95%;
+        padding: 30px;
+    }
+
+    .create-event-input,
+    .create-event-textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .create-event-submit {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1024px) {
+  body {
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+      font-size: 13px;
+  }
+
+  .container {
+      padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+      font-size: 12px;
+  }
+
+  .container {
+      padding: 10px;
+  }
+}
+
+
   

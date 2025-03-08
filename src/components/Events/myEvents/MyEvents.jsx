@@ -1,39 +1,85 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadEvents } from "../../../redux/store";
 import "./MyEvents.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const MyEvents = ({ events }) => {  // Accept events as a prop
+const MyEvents = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const allEvents = useSelector((state) => state.events);
 
+  const [displayedEvents, setDisplayedEvents] = useState([]);
+  const [userEvents, setUserEvents] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  // it Load events only once
   useEffect(() => {
-    if (loggedInUser) {
-      dispatch(loadEvents()); // ✅ Fetch events only once when user is logged in
+    if (allEvents.length === 0) {
+      dispatch(loadEvents());
     }
-  }, [dispatch, loggedInUser]); // ✅ Only re-runs if logged-in user changes
+  }, [dispatch, allEvents.length]);
 
-  // ✅ Filter only the logged-in user's events
-  const myEvents = loggedInUser
-    ? events.filter(event => event.createdBy === loggedInUser.username)
-    : [];
+  // Load user-specific events ONCE
+  useEffect(() => {
+    if (loggedInUser && allEvents.length > 0) {
+      const eventsCreatedByUser = allEvents.filter(event => event.createdBy === loggedInUser.email);
+
+      //It prevent re-render loops by checking if events have changed
+      if (userEvents.length !== eventsCreatedByUser.length) {
+        setUserEvents(eventsCreatedByUser);
+        setDisplayedEvents(eventsCreatedByUser.slice(0, 5));
+        setHasMore(eventsCreatedByUser.length > 5);
+        setLoading(false);
+      }
+    }
+  }, [allEvents, loggedInUser]);
+
+  // Fetch more events (pagination)
+  const fetchMoreEvents = () => {
+    setTimeout(() => {
+      const nextEvents = userEvents.slice(displayedEvents.length, displayedEvents.length + 5);
+      if (nextEvents.length === 0) {
+        setHasMore(false);
+      } else {
+        setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
+      }
+    }, 1000);
+  };
 
   return (
     <div className="events-list">
-      {myEvents.length === 0 ? (
-        <p>No events found.</p>
-      ) : (
-        myEvents.map((event) => (
-          <div key={event.id} className="event-card" onClick={() => navigate(`/events/${event.id}`)}>
-            <div className="event-content">
-              <h3>{event.title}</h3>
-              <p><span>Date:</span> {new Date(event.start).toLocaleString()}</p>
-              <p><span>Created by:</span> {event.createdBy}</p>
-            </div>
-          </div>
-        ))
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ←
+      </button>
+
+      {loading ? (<h3>Loading events...</h3>) : (
+        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh" }}>
+          <InfiniteScroll
+            dataLength={displayedEvents.length}
+            next={fetchMoreEvents}
+            hasMore={hasMore}
+            loader={<h4>Loading more events...</h4>}
+            endMessage={<p>No more events to show</p>}
+            scrollableTarget="scrollableDiv"
+          >
+            {displayedEvents.map((event, index) => {
+              const uniqueKey = `${event.id || "event"}-${index}`;
+              return (
+                <div key={uniqueKey} className="event-card" onClick={() => navigate(`/events/${event.id}`)}>
+                  <div className="event-content">
+                    <h3>{event.title}</h3>
+                    <p><span>Date:</span> {new Date(event.start).toLocaleString()}</p>
+                    <p><span>Created by:</span> {event.createdBy}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </InfiniteScroll>
+        </div>
       )}
     </div>
   );

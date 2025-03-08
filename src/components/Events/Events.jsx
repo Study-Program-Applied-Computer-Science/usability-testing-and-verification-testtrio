@@ -32,8 +32,7 @@ const Events = () => {
         </button>
       </div>
 
-      {/* Search Bar */}
-      <SearchFilter events={filteredEvents} setFilteredEvents={setFilteredEvents} />
+     
 
 
       <div className="events-content">
