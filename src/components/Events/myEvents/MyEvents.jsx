@@ -31,38 +31,45 @@ const MyEvents = () => {
 
   // Load user-specific events and apply filters
   useEffect(() => {
-    if (!allEvents || !loggedInUser) return;
-
-    // Filter events created by the logged-in user
-    const eventsCreatedByUser = allEvents.filter(event => event.userId === loggedInUser.id);
-
-    // Apply search and filter logic
-    const filteredEvents = eventsCreatedByUser.filter(event => {
-        const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
-
+    if (loggedInUser && allEvents.length > 0) {
+      const eventsCreatedByUser = allEvents.filter(
+        (event) => event.createdBy === loggedInUser.email
+      );
+  
+      // Apply search and filter logic
+      const filteredEvents = eventsCreatedByUser.filter((event) => {
+        const matchesSearch = event.title
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+  
         // Extract event hour in 12-hour format
-        const eventDate = new Date(event.start);
-        const eventHour = eventDate.getHours() % 12 || 12;
-        const eventPeriod = eventDate.getHours() >= 12 ? "PM" : "AM";
-
+        const eventHour = new Date(event.start).getHours() % 12 || 12;
+        const eventPeriod = new Date(event.start).getHours() >= 12 ? "PM" : "AM";
+  
         // Date Filtering Logic
-        const matchesDate = selectedDate ? eventDate.toDateString() === selectedDate.toDateString() : true;
-        const matchesTime = selectedTime ? eventHour === parseInt(selectedTime, 10) : true;
+        const matchesDate =
+          selectedDate && selectedDate instanceof Date
+            ? new Date(event.start).toDateString() === selectedDate.toDateString()
+            : true;
+  
+        const matchesTime = selectedTime
+          ? eventHour === parseInt(selectedTime, 10)
+          : true;
         const matchesPeriod = selectedPeriod ? eventPeriod === selectedPeriod : true;
-
+  
         return matchesSearch && matchesTime && matchesPeriod && matchesDate;
-    });
-
-    // Only update state if the filtered list has changed
-    if (JSON.stringify(filteredEvents) !== JSON.stringify(userEvents)) {
+      });
+  
+      // Only update state if filtered results are different
+      if (JSON.stringify(userEvents) !== JSON.stringify(filteredEvents)) {
         setUserEvents(filteredEvents);
         setDisplayedEvents(filteredEvents.slice(0, 5));
         setHasMore(filteredEvents.length > 5);
+        setLoading(false);
+      }
     }
-
-    setLoading(false);
-
-}, [allEvents, loggedInUser, searchTerm, selectedTime, selectedPeriod, selectedDate, userEvents]);
+  }, [allEvents, loggedInUser, searchTerm, selectedTime, selectedPeriod, selectedDate]);
+  
 
 
   // Fetch more events (pagination)
