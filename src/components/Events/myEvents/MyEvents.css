@@ -7,10 +7,17 @@
   padding: 20px;
   background-color: white;
   max-height: 100vh;
-  overflow: auto;
 
 }
 
+#scrollableDiv {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 80vh;
+  max-width: calc(100vh - 100px);
+  width: 100%;
+  padding-right: 10px;
+}
 /* Infinite Scroll */
 .infinite-scroll-component {
   display: flex;
@@ -24,10 +31,10 @@
 /* Event Card */
 .event-card {
   width: 100%;
-  max-width: 1300px;
+  max-width: 500px;
   background-color: #2a2a3c;
   border-radius: 10px;
-  padding: 15px;
+  padding: 25px;
   margin: 10px 10px;
   display: flex;
   align-items: center;

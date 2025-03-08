@@ -29,7 +29,7 @@ const MyEvents = () => {
       const eventsCreatedByUser = allEvents.filter(event => event.createdBy === loggedInUser.email);
 
       //It prevent re-render loops by checking if events have changed
-      if (userEvents.length !== eventsCreatedByUser.length) {
+      if (JSON.stringify(userEvents) !==JSON.stringify(eventsCreatedByUser)) {
         setUserEvents(eventsCreatedByUser);
         setDisplayedEvents(eventsCreatedByUser.slice(0, 5));
         setHasMore(eventsCreatedByUser.length > 5);
@@ -40,15 +40,15 @@ const MyEvents = () => {
 
   // Fetch more events (pagination)
   const fetchMoreEvents = () => {
+    if (!userEvents || displayedEvents.length >= userEvents.length) {
+      setHasMore(false);
+      return;
+    }
     setTimeout(() => {
       const nextEvents = userEvents.slice(displayedEvents.length, displayedEvents.length + 5);
-      if (nextEvents.length === 0) {
-        setHasMore(false);
-      } else {
-        setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
-      }
+      setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
     }, 1000);
-  };
+   };
 
   return (
     <div className="events-list">
@@ -57,7 +57,7 @@ const MyEvents = () => {
       </button>
 
       {loading ? (<h3>Loading events...</h3>) : (
-        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh" }}>
+        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
           {/* React infinate scrolll*/}
           <InfiniteScroll
             dataLength={displayedEvents.length}
