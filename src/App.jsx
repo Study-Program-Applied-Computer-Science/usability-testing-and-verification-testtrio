@@ -8,7 +8,7 @@ import Home from "./components/Home/Home.jsx";
 import Calender from "./components/Calender/Calender.jsx";
 import UserLogin from "./components/UserLogin/UserLogin.jsx";
 import Events from './components/Events/Events.jsx';
-import EventDetails from './components/Events/eventDetails.jsx';
+import EventDetails from './components/Events/EventDetails.jsx';
 import MyEvents from './components/Events/myEvents/myEvents.jsx';
 import AllEvents from './components/Events/allEvents/allEvents.jsx';
 const App = () => {
