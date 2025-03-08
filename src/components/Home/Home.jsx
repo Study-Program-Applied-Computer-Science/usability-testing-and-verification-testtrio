@@ -22,13 +22,13 @@ const Home = () => {
               <div className="buttons">
               <button
                 className="btn-primary"
-                onClick={() => navigate("/UserLogin", { state: { isSignUp: true } })}
+                onClick={() => navigate("/Calender", { state: { isSignUp: true } })}
               >
                 Get Started
               </button>
               <button
                 className="btn-secondary"
-                onClick={() => navigate("/UserLogin", { state: { isSignUp: false } })}
+                onClick={() => navigate("/Events", { state: { isSignUp: true } })}
               >
                 Access Now
               </button>

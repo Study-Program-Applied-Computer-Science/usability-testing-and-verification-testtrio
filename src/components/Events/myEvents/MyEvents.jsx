@@ -58,6 +58,7 @@ const MyEvents = () => {
 
       {loading ? (<h3>Loading events...</h3>) : (
         <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh" }}>
+          {/* React infinate scrolll*/}
           <InfiniteScroll
             dataLength={displayedEvents.length}
             next={fetchMoreEvents}
