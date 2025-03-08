@@ -34,6 +34,7 @@ const MyEvents = () => {
     if (loggedInUser && allEvents.length > 0) {
       const eventsCreatedByUser = allEvents.filter(event => event.createdBy === loggedInUser.email);
 
+<<<<<<< HEAD
       // Apply search and filter logic
       const filteredEvents = eventsCreatedByUser.filter(event => {
           const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -57,6 +58,13 @@ const MyEvents = () => {
         setUserEvents(filteredEvents);
         setDisplayedEvents(filteredEvents.slice(0, 5));
         setHasMore(filteredEvents.length > 5);
+=======
+      //It prevent re-render loops by checking if events have changed
+      if (JSON.stringify(userEvents) !==JSON.stringify(eventsCreatedByUser)) {
+        setUserEvents(eventsCreatedByUser);
+        setDisplayedEvents(eventsCreatedByUser.slice(0, 5));
+        setHasMore(eventsCreatedByUser.length > 5);
+>>>>>>> e6b01c24eee6cc8e07e3745a2da530cac03075a1
         setLoading(false);
       }
     }
@@ -64,15 +72,15 @@ const MyEvents = () => {
 
   // Fetch more events (pagination)
   const fetchMoreEvents = () => {
+    if (!userEvents || displayedEvents.length >= userEvents.length) {
+      setHasMore(false);
+      return;
+    }
     setTimeout(() => {
       const nextEvents = userEvents.slice(displayedEvents.length, displayedEvents.length + 5);
-      if (nextEvents.length === 0) {
-        setHasMore(false);
-      } else {
-        setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
-      }
+      setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
     }, 1000);
-  };
+   };
 
   return (
     <div className="events-list">
@@ -116,7 +124,12 @@ const MyEvents = () => {
 )}
 
       {loading ? (<h3>Loading events...</h3>) : (
+<<<<<<< HEAD
         <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh" }}>
+=======
+        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
+          {/* React infinate scrolll*/}
+>>>>>>> e6b01c24eee6cc8e07e3745a2da530cac03075a1
           <InfiniteScroll
             dataLength={displayedEvents.length}
             next={fetchMoreEvents}
