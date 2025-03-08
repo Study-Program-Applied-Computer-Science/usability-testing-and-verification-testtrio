@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.css";
+import "./Home.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
