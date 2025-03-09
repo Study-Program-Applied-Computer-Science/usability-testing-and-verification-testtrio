@@ -10,10 +10,23 @@ This streamlined workflow ensures an intuitive and efficient event management ex
 Arvind Natraj, Mohith Tummala, Neubin Sebastian
 
 **Features**
+Features of the Event Scheduling App
+1. User Authentication
+2. Interactive Calendar View
+3. Event creation
+4. Display user specific events
+5. CRUD of Events
+6. Smart Event Invitation System
+7. Advanced Search & Filtering
+8. Infinite Scrolling for Large Event Lists
+9. Fully Responsive UI
+10. Smooth User Experience & Navigation
+11. Continuous Integration (CI) with GitHub Actions
+12. Jest Testing (Unit and Integration)
+13. Cypress Automation Testing
 
 
-
- **Contributions on Project**
+**Contributions on Project**
  
 **Arvind**
 -  **Create Events** Users can create different events using form
