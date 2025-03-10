@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadEvents } from "./redux/store";
 import Navbar from "./components/Navbar/Navbar.jsx";

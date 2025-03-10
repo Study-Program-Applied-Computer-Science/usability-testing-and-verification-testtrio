@@ -8,7 +8,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import CreateEvent from "./CreateEvent";
 import "./Calendar.css";
 
-const CalendarView = () => {
+const Calender = () => {
   const dispatch = useDispatch();
   const events = useSelector((state) => state.events || []);
 
@@ -81,4 +81,4 @@ const CalendarView = () => {
   );
 };
 
-export default CalendarView;
+export default Calender;
