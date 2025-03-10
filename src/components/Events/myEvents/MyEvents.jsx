@@ -145,15 +145,19 @@ const MyEvents = () => {
 
       {showEventPopup && (
         <CreateEvent
-          isOpen={showEventPopup}
-          onClose={() => setShowEventPopup(false)}
-          selectedDateTime={{
-            date: selectedEvent?.start?.split("T")[0],
-            time: selectedEvent?.start?.split("T")[1] || "00:00",
-          }}
-          editingEvent={selectedEvent}
-          onDelete={handleDeleteEvent}
-        />
+        isOpen={showEventPopup}
+        onClose={() => setShowEventPopup(false)}
+        selectedDateTime={{
+          date: selectedEvent?.start ? selectedEvent.start.split("T")[0] : "",
+          time: selectedEvent?.start
+            ? new Date(selectedEvent.start).toTimeString().slice(0, 5)
+            : "00:00",
+        }}
+        editingEvent={selectedEvent}
+        onDelete={handleDeleteEvent}
+      />
+      
+      
       )}
     </div>
   );
