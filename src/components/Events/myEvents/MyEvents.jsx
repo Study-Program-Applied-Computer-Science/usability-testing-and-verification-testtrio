@@ -1,93 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loadEvents } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { loadEvents, deleteExistingEvent } from "../../../redux/store";
+import CreateEvent from "../../Calender/CreateEvent";
 import "./MyEvents.css";
-import InfiniteScroll from "react-infinite-scroll-component";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const MyEvents = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const allEvents = useSelector((state) => state.events);
 
-  const [displayedEvents, setDisplayedEvents] = useState([]);
-  const [userEvents, setUserEvents] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedPeriod, setSelectedPeriod] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null); // New Date Filter
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showEventPopup, setShowEventPopup] = useState(false);
+  const [displayedEvents, setDisplayedEvents] = useState([]); 
+  const [hasMore, setHasMore] = useState(true);
 
-  // Load events only once
   useEffect(() => {
-    if (allEvents.length === 0) {
-      dispatch(loadEvents());
-    }
-  }, [dispatch, allEvents.length]);
+    dispatch(loadEvents());
+  }, [dispatch]);
 
-  // Load user-specific events and apply filters
+  // Get user-specific events
+  const userEvents = allEvents.filter((event) => event.createdBy === loggedInUser?.email);
+
+  // **Filtering logic**
+  const filteredEvents = userEvents.filter((event) => {
+    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const eventStartDate = new Date(event.start);
+    const eventHour = eventStartDate.getHours() % 12 || 12; // Convert to 12-hour format
+    const eventPeriod = eventStartDate.getHours() >= 12 ? "PM" : "AM";
+    const matchesDate =
+      selectedDate && selectedDate instanceof Date
+        ? eventStartDate.toDateString() === selectedDate.toDateString()
+        : true;
+    const matchesTime = selectedTime ? eventHour === parseInt(selectedTime, 10) : true;
+    const matchesPeriod = selectedPeriod ? eventPeriod === selectedPeriod : true;
+
+    return matchesSearch && matchesTime && matchesPeriod && matchesDate;
+  });
+
+  // **Infinite Scrolling - Load More Events**
   useEffect(() => {
-    if (loggedInUser && allEvents.length > 0) {
-      const eventsCreatedByUser = allEvents.filter(
-        (event) => event.createdBy === loggedInUser.email
-      );
-  
-      // Apply search and filter logic
-      const filteredEvents = eventsCreatedByUser.filter((event) => {
-        const matchesSearch = event.title
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-  
-        // Extract event hour in 12-hour format
-        const eventHour = new Date(event.start).getHours() % 12 || 12;
-        const eventPeriod = new Date(event.start).getHours() >= 12 ? "PM" : "AM";
-  
-        // Date Filtering Logic
-        const matchesDate =
-          selectedDate && selectedDate instanceof Date
-            ? new Date(event.start).toDateString() === selectedDate.toDateString()
-            : true;
-  
-        const matchesTime = selectedTime
-          ? eventHour === parseInt(selectedTime, 10)
-          : true;
-        const matchesPeriod = selectedPeriod ? eventPeriod === selectedPeriod : true;
-  
-        return matchesSearch && matchesTime && matchesPeriod && matchesDate;
-      });
-  
-      // Only update state if filtered results are different
-      if (JSON.stringify(userEvents) !== JSON.stringify(filteredEvents)) {
-        setUserEvents(filteredEvents);
-        setDisplayedEvents(filteredEvents.slice(0, 5));
-        setHasMore(filteredEvents.length > 5);
-        setLoading(false);
-      }
-    }
-  }, [allEvents, loggedInUser, searchTerm, selectedTime, selectedPeriod, selectedDate]);
-  
+    setDisplayedEvents(filteredEvents.slice(0, 5)); 
+    setHasMore(filteredEvents.length > 5);
+  }, [searchTerm, selectedDate, selectedTime, selectedPeriod, allEvents]); // Only updates when filters change
 
-
-  // Fetch more events (pagination)
   const fetchMoreEvents = () => {
-    if (!userEvents || displayedEvents.length >= userEvents.length) {
-      setHasMore(false);
-      return;
-    }
     setTimeout(() => {
-      const nextEvents = userEvents.slice(displayedEvents.length, displayedEvents.length + 5);
+      const nextEvents = filteredEvents.slice(displayedEvents.length, displayedEvents.length + 5);
       setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
+      setHasMore(displayedEvents.length + nextEvents.length < filteredEvents.length);
     }, 1000);
-   };
+  };
+
+  // Open CreateEvent popup with event details
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setShowEventPopup(true);
+  };
+
+  // Handle event deletion & update UI immediately
+  const handleDeleteEvent = (eventId) => {
+    dispatch(deleteExistingEvent(eventId));
+    setShowEventPopup(false);
+  };
 
   return (
     <div className="events-list">
-      <button className="back-button" onClick={() => navigate(-1)}>←</button>
-
       <div className="filters">
         <input
           type="text"
@@ -98,8 +82,10 @@ const MyEvents = () => {
         />
         <select onChange={(e) => setSelectedTime(e.target.value)} value={selectedTime} className="time-dropdown">
           <option value="">Select Time</option>
-          {Array.from({ length: 12 }, (_, i) => i + 1).map(time => (
-            <option key={time} value={time}>{time}</option>
+          {Array.from({ length: 12 }, (_, i) => i + 1).map((time) => (
+            <option key={time} value={time}>
+              {time}
+            </option>
           ))}
         </select>
         <select onChange={(e) => setSelectedPeriod(e.target.value)} value={selectedPeriod} className="period-dropdown">
@@ -107,8 +93,6 @@ const MyEvents = () => {
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
-        
-        {/* Date Picker Filter */}
         <DatePicker
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
@@ -116,19 +100,17 @@ const MyEvents = () => {
           className="date-picker"
         />
       </div>
-     
 
-{/* Clear Date Button */}
-{selectedDate && (
-  <button className="clear-date-btn" onClick={() => setSelectedDate(null)}>
-    Clear Date
-  </button>
-)}
+      {selectedDate && (
+        <button className="clear-date-btn" onClick={() => setSelectedDate(null)}>
+          Clear Date
+        </button>
+      )}
 
-      {loading ? (<h3>Loading events...</h3>) : (
-
-        <div id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
-          {/* React infinate scrolll*/}
+      <div className="events-container" id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
+        {filteredEvents.length === 0 ? (
+          <p>No events found.</p>
+        ) : (
           <InfiniteScroll
             dataLength={displayedEvents.length}
             next={fetchMoreEvents}
@@ -137,20 +119,34 @@ const MyEvents = () => {
             endMessage={<p>No more events to show</p>}
             scrollableTarget="scrollableDiv"
           >
-            {displayedEvents.map((event, index) => {
-              const uniqueKey = `${event.id || "event"}-${index}`;
-              return (
-                <div key={uniqueKey} className="event-card" onClick={() => navigate(`/events/${event.id}`)}>
-                  <div className="event-content">
-                    <h3>{event.title}</h3>
-                    <p><span>Date:</span> {new Date(event.start).toLocaleString()}</p>
-                    <p><span>Created by:</span> {event.createdBy}</p>
-                  </div>
+            {displayedEvents.map((event) => (
+              <div key={event.id} className="event-card" onClick={() => handleEventClick(event)}>
+                <div className="event-content">
+                  <h3>{event.title}</h3>
+                  <p>
+                    <span>Date:</span> {new Date(event.start).toLocaleString()}
+                  </p>
+                  <p>
+                    <span>Created by:</span> {event.createdBy}
+                  </p>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </InfiniteScroll>
-        </div>
+        )}
+      </div>
+
+      {showEventPopup && (
+        <CreateEvent
+          isOpen={showEventPopup}
+          onClose={() => setShowEventPopup(false)}
+          selectedDateTime={{
+            date: selectedEvent?.start?.split("T")[0],
+            time: selectedEvent?.start?.split("T")[1] || "00:00",
+          }}
+          editingEvent={selectedEvent}
+          onDelete={handleDeleteEvent}
+        />
       )}
     </div>
   );

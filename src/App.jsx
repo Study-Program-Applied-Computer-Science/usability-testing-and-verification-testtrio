@@ -8,7 +8,6 @@ import Home from "./components/Home/Home.jsx";
 import Calender from "./components/Calender/Calender.jsx";
 import UserLogin from "./components/UserLogin/UserLogin.jsx";
 import Events from './components/Events/Events.jsx';
-import EventDetails from './components/Events/EventDetails.jsx';
 import MyEvents from './components/Events/myEvents/MyEvents.jsx';
 import AllEvents from './components/Events/allEvents/AllEvents.jsx';
 const App = () => {
@@ -42,9 +41,7 @@ const App = () => {
         <Route path="/Events/*" element={isLoggedIn ? <Events /> : <Navigate to="/UserLogin" replace />}>
           <Route path="AllEvents" element={<AllEvents />} />
           <Route path="MyEvents" element={<MyEvents />} />
-        </Route>
-
-        <Route path="/Events/:eventId" element={isLoggedIn ? <EventDetails /> : <Navigate to="/UserLogin" replace />} />
+        </Route>        
       </Routes>
 
       
