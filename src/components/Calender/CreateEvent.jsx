@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import { useDispatch } from "react-redux";
 import { createNewEvent, updateExistingEvent, deleteExistingEvent } from "../../redux/store";
 import emailjs from "@emailjs/browser";
@@ -9,13 +9,11 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
   const [isEditing, setIsEditing] = useState(editingEvent ? false : true);
-
   const [eventTitle, setEventTitle] = useState(editingEvent?.title || "");
   const [attendees, setAttendees] = useState(editingEvent?.attendees || "");
   const [description, setDescription] = useState(editingEvent?.description || "");
   const [eventDate, setEventDate] = useState(editingEvent?.start?.split("T")[0] || selectedDateTime?.date || "");
   const [eventTime, setEventTime] = useState(editingEvent?.time || selectedDateTime?.time || "00:00");
-  const [tags, setTags] = useState(editingEvent?.tags?.join(", ") || "");
 
   useEffect(() => {
     if (editingEvent) {
@@ -24,14 +22,12 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
       setDescription(editingEvent.description || "");
       setEventDate(editingEvent.start?.split("T")[0] || "");
       setEventTime(editingEvent.time || "00:00");
-      setTags(editingEvent.tags?.join(", ") || ""); 
     } else {
       setEventTitle("");
       setAttendees("");
       setDescription("");
       setEventDate(selectedDateTime?.date || "");
       setEventTime(selectedDateTime?.time || "00:00");
-      setTags("");
     }
   }, [editingEvent, selectedDateTime]);
 
@@ -41,7 +37,6 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
     setIsEditing(true);
   };
 
- 
   const sendEmailToAttendees = (eventData) => {
     const emailsArray = attendees.split(",").map(email => email.trim());
 
@@ -65,10 +60,9 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
     });
   };
 
- 
   const handleSubmit = async () => {
-    if (!eventTitle.trim()) {
-      alert("Event title is required!");
+    if (!eventTitle.trim() || !attendees.trim() || !description.trim()) {
+      alert("All fields are required!");
       return;
     }
 
@@ -84,7 +78,6 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
       description,
       attendees,
       createdBy: loggedInUser.email,
-      tags: tags.split(",").map(tag => tag.trim()), 
     };
 
     if (editingEvent) {
@@ -93,9 +86,11 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
         return;
       }
       dispatch(updateExistingEvent(newEvent));
+      alert("Event updated successfully!");
     } else {
       dispatch(createNewEvent(newEvent));
       sendEmailToAttendees(newEvent);
+      alert("Event created successfully!");
     }
 
     onClose();
@@ -109,8 +104,12 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
       return;
     }
 
-    dispatch(deleteExistingEvent(editingEvent.id));
-    onClose();
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+    if (confirmDelete) {
+      dispatch(deleteExistingEvent(editingEvent.id));
+      alert("Event deleted successfully!");
+      onClose();
+    }
   };
 
   return (
@@ -121,14 +120,7 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
         <h2 className="create-event-title">{editingEvent ? "Event Details" : "Create Event"}</h2>
 
         <label className="create-event-label">Event Title</label>
-        <input
-          type="text"
-          className="create-event-input"
-          value={eventTitle}
-          onChange={(e) => setEventTitle(e.target.value)}
-          placeholder="Enter event title"
-          disabled={!isEditing}
-        />
+        <input type="text" className="create-event-input" value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} placeholder="Enter event title" disabled={!isEditing} required />
 
         <label className="create-event-label">Date</label>
         <input type="text" className="create-event-input read-only" value={eventDate} readOnly />
@@ -137,48 +129,19 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
         <input type="time" className="create-event-input read-only" value={eventTime} readOnly />
 
         <label className="create-event-label">Attendees</label>
-        <input
-          type="email"
-          className="create-event-input"
-          value={attendees}
-          onChange={(e) => setAttendees(e.target.value)}
-          placeholder="example@mail.com"
-          disabled={!isEditing}
-        />
-
-        <label className="create-event-label">Tags (comma-separated)</label>
-        <input
-          type="text"
-          className="create-event-input"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          placeholder="e.g. Work, Urgent, Meeting"
-          disabled={!isEditing}
-        />
+        <input type="email" className="create-event-input" value={attendees} onChange={(e) => setAttendees(e.target.value)} placeholder="example@mail.com" disabled={!isEditing} required />
 
         <label className="create-event-label">Event Description</label>
-        <textarea
-          className="create-event-textarea"
-          rows="3"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter event details"
-          disabled={!isEditing}
-        ></textarea>
+        <textarea className="create-event-textarea" rows="3" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter event details" disabled={!isEditing} required></textarea>
 
-        {isEditing ? (
-          <button className="create-event-submit" onClick={handleSubmit}>
-            Save Changes
-          </button>
+        {editingEvent && !isEditing ? (
+          <div className="button-group">
+            <button className="create-event-edit" onClick={handleEdit}>Edit Event</button>
+            <button className="create-event-delete" onClick={handleDelete}>Delete Event</button>
+          </div>
         ) : (
-          <button className="create-event-edit" onClick={handleEdit}>
-            Edit Event
-          </button>
-        )}
-
-        {editingEvent && (
-          <button className="create-event-delete" onClick={handleDelete}>
-            Delete Event
+          <button className="create-event-submit" onClick={handleSubmit}>
+            {editingEvent ? "Save Changes" : "Create Event"}
           </button>
         )}
       </div>
