@@ -60,7 +60,14 @@ const MyEvents = () => {
 
   // Open CreateEvent popup with event details
   const handleEventClick = (event) => {
-    setSelectedEvent(event);
+    const eventStart = new Date(event.start);
+    const eventTime = eventStart.toTimeString().slice(0, 5); // Extracts HH:MM format
+  
+    setSelectedEvent({
+      ...event,
+      time: eventTime, //Ensure time is correctly passed
+    });
+  
     setShowEventPopup(true);
   };
 
