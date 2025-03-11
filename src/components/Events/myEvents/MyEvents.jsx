@@ -87,7 +87,7 @@ const MyEvents = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-bar"
         />
-        <select onChange={(e) => setSelectedTime(e.target.value)} value={selectedTime} className="time-dropdown">
+        <select onChange={(e) => setSelectedTime(e.target.value)} value={selectedTime} className="time-dropdown" data-testid="time-select">
           <option value="">Select Time</option>
           {Array.from({ length: 12 }, (_, i) => i + 1).map((time) => (
             <option key={time} value={time}>
