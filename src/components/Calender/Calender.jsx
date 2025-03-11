@@ -25,7 +25,7 @@ const Calender = () => {
     const selectedTime = info.dateStr.includes("T") 
       ? info.dateStr.split("T")[1].slice(0, 5) 
       : "00:00"; 
-
+  
     setSelectedDateTime({ date: selectedDate, time: selectedTime });
     setEditingEvent(null);
     setShowEventForm(true);
@@ -33,12 +33,12 @@ const Calender = () => {
 
   const handleEventClick = (clickInfo) => {
     const eventStart = new Date(clickInfo.event.startStr);
-    const eventTime = eventStart.toTimeString().slice(0, 5); 
+    const eventTime = eventStart.toTimeString().slice(0, 5);
   
     setEditingEvent({
       id: clickInfo.event.id,
       title: clickInfo.event.title,
-      start: clickInfo.event.startStr, 
+      start: clickInfo.event.startStr,
       time: eventTime,
       description: clickInfo.event.extendedProps.description || "",
       attendees: clickInfo.event.extendedProps.attendees || "",
@@ -47,6 +47,7 @@ const Calender = () => {
   
     setShowEventForm(true);
   };
+  
 
   return (
     <div className="calendar-container">
@@ -71,11 +72,12 @@ const Calender = () => {
 
       {showEventForm && (
         <CreateEvent
-          isOpen={showEventForm}
-          onClose={() => setShowEventForm(false)}
-          selectedDateTime={selectedDateTime}
-          editingEvent={editingEvent}
-        />
+        isOpen={showEventForm}
+        onClose={() => setShowEventForm(false)}
+        selectedDateTime={selectedDateTime} // Ensure this gets passed correctly
+        editingEvent={editingEvent}
+      />
+      
       )}
     </div>
   );

@@ -21,15 +21,13 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
       setAttendees(editingEvent.attendees || "");
       setDescription(editingEvent.description || "");
       setEventDate(editingEvent.start?.split("T")[0] || "");
-      setEventTime(editingEvent.time || "00:00");
-    } else {
-      setEventTitle("");
-      setAttendees("");
-      setDescription("");
-      setEventDate(selectedDateTime?.date || "");
-      setEventTime(selectedDateTime?.time || "00:00");
+      setEventTime(new Date(editingEvent.start).toTimeString().slice(0, 5));
+    } else if (selectedDateTime) { 
+      setEventDate(selectedDateTime.date || "");
+      setEventTime(selectedDateTime.time || "00:00");
     }
   }, [editingEvent, selectedDateTime]);
+  
 
   if (!isOpen) return null;
 
@@ -115,7 +113,8 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
   return (
     <div className="create-event-overlay">
       <div className="create-event-container">
-        <button className="create-event-back" onClick={onClose}></button>
+      <button className="create-event-back" data-testid="back-button" onClick={onClose}></button>
+
 
         <h2 className="create-event-title">{editingEvent ? "Event Details" : "Create Event"}</h2>
 

@@ -304,17 +304,6 @@
       ]
     },
     {
-      "id": "b19a",
-      "title": "sDSFFS",
-      "start": "2025-03-11T00:00",
-      "description": "",
-      "attendees": "",
-      "createdBy": "dummy145@gmail.com",
-      "tags": [
-        ""
-      ]
-    },
-    {
       "id": "d820",
       "title": "adjaasjfadfjn",
       "start": "2025-03-07T00:00",
@@ -408,6 +397,14 @@
       "description": "sdsd sdsd.",
       "attendees": "abc@mail.com",
       "createdBy": "neubinsebastian01@gmail.com"
+    },
+    {
+      "id": "b05a",
+      "title": "vacations",
+      "start": "2025-03-14T18:00",
+      "description": "15 days",
+      "attendees": "arvindaru6287@gmailcom",
+      "createdBy": "dummy145@gmail.com"
     }
   ]
 }
