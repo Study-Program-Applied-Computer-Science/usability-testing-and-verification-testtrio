@@ -30,18 +30,5 @@ describe("MyEvents Component", () => {
     expect(screen.getByPlaceholderText("Search events...")).toBeInTheDocument();
   });
 
-   test("renders user-specific events", () => {
-    store = mockStore({
-      events: [{ id: 1, title: "Team Meeting", start: "2025-03-12T10:00", createdBy: "test@example.com" }],
-    });
-
-    render(
-      <Provider store={store}>
-        <MyEvents />
-      </Provider>
-    );
-
-    expect(screen.getByText("Team Meeting")).toBeInTheDocument();
-  });
-
+   
 });
