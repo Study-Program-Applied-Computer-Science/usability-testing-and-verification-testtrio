@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import eventsReducer from "../redux/store"; // ✅ Ensure this is correctly imported
+import eventsReducer from "../redux/store"; 
 
 export function createMockStore(preloadedState = { events: [] }) {
   return configureStore({
-    reducer: { events: eventsReducer.reducer }, // ✅ Fix: Use `reducer` key correctly
+    reducer: { events: eventsReducer.reducer },
     preloadedState,
   });
 }

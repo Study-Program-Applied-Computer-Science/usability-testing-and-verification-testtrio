@@ -22,9 +22,8 @@ const eventsSlice = createSlice({
 
 export const { setEvents, addEvent, editEvent, removeEvent } = eventsSlice.actions;
 
-/**
- * ✅ Load only the events created by the logged-in user
- */
+/*
+ Load only the events created by the logged-in user*/
 export const loadEvents = () => async (dispatch) => {
   try {
     const events = await fetchEvents();
@@ -35,7 +34,7 @@ export const loadEvents = () => async (dispatch) => {
       return;
     }
 
-    // ✅ Filter events before storing them
+    // Filter events before storing them
     const userEvents = events.filter((event) => event.createdBy === loggedInUser.email);
     dispatch(setEvents(userEvents));
   } catch (error) {
@@ -45,8 +44,7 @@ export const loadEvents = () => async (dispatch) => {
 };
 
 /**
- * ✅ Create & Persist Event
- */
+ Create & Persist Event */
 export const createNewEvent = (eventData) => async (dispatch) => {
   try {
     const newEvent = await createEvent(eventData);
@@ -61,9 +59,7 @@ export const createNewEvent = (eventData) => async (dispatch) => {
 };
 
 
-/**
- * ✅ Update & Persist Event
- */
+/*Update Event*/
 export const updateExistingEvent = (eventData) => async (dispatch) => {
   if (!eventData?.id) return;
   try {
@@ -76,9 +72,7 @@ export const updateExistingEvent = (eventData) => async (dispatch) => {
   }
 };
 
-/**
- * ✅ Delete Event from Redux & DB
- */
+/*Delete Event from Redux & DB*/
 export const deleteExistingEvent = (eventId) => async (dispatch) => {
   if (!eventId) return;
   try {
