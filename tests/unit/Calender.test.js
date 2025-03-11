@@ -1,18 +1,35 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createMockStore } from "../../src/utils/mock-store";
+import configureStore from "redux-mock-store";
 import Calender from "../../src/components/Calender/Calender";
+
+const mockStore = configureStore([]);
 
 describe("Calender Component", () => {
   let store;
 
   beforeEach(() => {
-    store = createMockStore({ events: [] });
+    store = mockStore({ events: [] });
+    store.dispatch = jest.fn();
   });
 
-  // testing for week, day and month views T1
+  // it test rendering the Calender component
+  test("renders Calender component properly", () => {
+    render(
+      <Provider store={store}>
+        <Calender />
+      </Provider>
+    );
 
+    expect(screen.getByRole("heading")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /today/i })).toBeInTheDocument();
+  });
+
+
+
+  // Test for all month, week and day views
+  
   test("renders Month, Week, and Day views properly", () => {
     render(
       <Provider store={store}>
@@ -42,34 +59,26 @@ describe("Calender Component", () => {
 
 
 
-
-  // test regardind navigation buttons slider <> T2
-
-  test("fullCalendar slider navigation works properly", () => {
+  // it test navigating between weeks using slider buttons
+  test("allows navigation between weeks using prev/next buttons", () => {
     render(
       <Provider store={store}>
         <Calender />
       </Provider>
     );
-  
-    // Find navigation buttons
-    const prevButton = screen.getByRole("button", { name: "Previous week" });
-    const nextButton = screen.getByRole("button", { name: "Next week" });
-    const currentTitle = screen.getByRole("heading");
-  
-    const initialTitle = currentTitle.textContent;
-  
-    // on clicking the slide navs right the title will change in our case the title in calenderview is month,date,year changes
+
+    const prevButton = screen.getByRole("button", { name: /previous week/i });
+    const nextButton = screen.getByRole("button", { name: /next week/i });
+    const calendarTitle = screen.getByRole("heading");
+
+    const initialTitle = calendarTitle.textContent;
+
     fireEvent.click(nextButton);
-    expect(currentTitle.textContent).not.toBe(initialTitle);
-  
-    // on clicking the slide navs left the title will be back to previos initial one
+    expect(calendarTitle.textContent).not.toBe(initialTitle);
+
     fireEvent.click(prevButton);
-    expect(currentTitle.textContent).toBe(initialTitle);
+    expect(calendarTitle.textContent).toBe(initialTitle);
   });
 
-
-
-
- 
+  
 });

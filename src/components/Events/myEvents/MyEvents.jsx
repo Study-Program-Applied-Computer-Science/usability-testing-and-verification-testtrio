@@ -10,7 +10,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const MyEvents = () => {
   const dispatch = useDispatch();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  const allEvents = useSelector((state) => state.events);
+  const allEvents = useSelector((state) => state.events || []);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
