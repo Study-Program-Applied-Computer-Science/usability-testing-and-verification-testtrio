@@ -304,17 +304,6 @@
       ]
     },
     {
-      "id": "b19a",
-      "title": "sDSFFS",
-      "start": "2025-03-11T00:00",
-      "description": "",
-      "attendees": "",
-      "createdBy": "dummy145@gmail.com",
-      "tags": [
-        ""
-      ]
-    },
-    {
       "id": "d820",
       "title": "adjaasjfadfjn",
       "start": "2025-03-07T00:00",
@@ -359,8 +348,6 @@
       ]
     },
     {
-<<<<<<< HEAD
-=======
       "id": "7996",
       "title": "New event 1",
       "start": "2025-03-13T07:00",
@@ -380,11 +367,10 @@
       "createdBy": "neubinsebastian01@gmail.com"
     },
     {
->>>>>>> 3ddc593de990b2175f887fbfc3c463a305fbe5df
       "id": "6b6b",
-      "title": "postedit34",
+      "title": "post",
       "start": "2025-03-11T02:30",
-      "description": "wewswedit",
+      "description": "wewsw",
       "attendees": "qwws@gmail.com",
       "createdBy": "neubinsebastian01@gmail.com"
     },
@@ -398,43 +384,27 @@
     },
     {
       "id": "41fb",
-      "title": "asdadedit2",
+      "title": "asdad",
       "start": "2025-03-12T05:30",
-      "description": "asdadui76editing",
+      "description": "asdad",
       "attendees": "qwert@mail.com",
       "createdBy": "neubinsebastian01@gmail.com"
     },
     {
       "id": "74d0",
-      "title": "bdayedit23",
+      "title": "bdayedit",
       "start": "2025-03-13T00:30",
       "description": "sdsd sdsd.",
       "attendees": "abc@mail.com",
       "createdBy": "neubinsebastian01@gmail.com"
     },
     {
-      "id": "dc07",
-      "title": "rest23edited",
-      "start": "2025-03-11T04:30",
-      "description": "eewre4343",
-      "attendees": "e@g.com",
-      "createdBy": "neubinsebastian01@gmail.com"
-    },
-    {
-      "id": "c850",
-      "title": "erer",
-      "start": "2025-03-13T03:30",
-      "description": "sdsdsd",
-      "attendees": "ere@h.com",
-      "createdBy": "neubinsebastian01@gmail.com"
-    },
-    {
-      "id": "0ea3",
-      "title": "3434",
-      "start": "2025-03-11T08:30",
-      "description": "wewe",
-      "attendees": "34@mail.com",
-      "createdBy": "neubinsebastian01@gmail.com"
+      "id": "b05a",
+      "title": "vacations",
+      "start": "2025-03-14T18:00",
+      "description": "15 days",
+      "attendees": "arvindaru6287@gmailcom",
+      "createdBy": "dummy145@gmail.com"
     }
   ]
 }

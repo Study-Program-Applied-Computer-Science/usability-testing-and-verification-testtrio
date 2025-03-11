@@ -113,7 +113,8 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
   return (
     <div className="create-event-overlay">
       <div className="create-event-container">
-        <button className="create-event-back" onClick={onClose}></button>
+      <button className="create-event-back" data-testid="back-button" onClick={onClose}></button>
+
 
         <h2 className="create-event-title">{editingEvent ? "Event Details" : "Create Event"}</h2>
 
