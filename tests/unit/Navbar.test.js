@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Navbar from "../../src/components/Navbar/Navbar";
 
+
 // Mock react-router-dom
 jest.mock("react-router-dom", () => ({
   NavLink: ({ to, children }) => <a href={to}>{children}</a>,
