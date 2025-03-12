@@ -7,7 +7,7 @@
     align-items: center;
     width: 100%;
     position: relative; /* Ensure it sticks at the bottom */
-    bottom: 0;
+    bottom: 25px;
   }
   
   .footer-content {
