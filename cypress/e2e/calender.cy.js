@@ -51,7 +51,7 @@ describe("Calendar Page Tests", () => {
       cy.get(".fc-toolbar-title").should(($titleAfter) => {
         expect($titleAfter.text()).not.to.eq(initialTitle);
 
-        // Other way of repeitive nav task is forloop - (i = 0, i < clicks, i++)
+        // Other way of repeitive nav task is - (i = 0, i < clicks, i++)
       });
     });
   });

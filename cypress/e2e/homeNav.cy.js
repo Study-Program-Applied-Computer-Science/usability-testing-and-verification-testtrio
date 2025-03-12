@@ -3,6 +3,7 @@ describe("Home Page Navigation with Persistent Login", () => {
       cy.login();
     });
 
+    // two advanced tests for home page
     it("should navigate to Calendar page, return to Home, then go to Events page, and log out", () => {
       
       cy.contains("button", "Get Started").click();
