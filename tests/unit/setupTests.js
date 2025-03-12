@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import "whatwg-fetch";
 
 
+
 global.console = {
   ...console,
   error: jest.fn(), // Suppress errors in tests
