@@ -31,7 +31,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           <button
             className="logout-button"
             onClick={handleLogout}
-            style={{ backgroundColor: "orange", color: "white", padding: "10px", border: "none", borderRadius: "5px", cursor: "pointer" }}
+            style={{ backgroundColor: "white", color: "#6a5acd", padding: "10px", border: "none", borderRadius: "5px", cursor: "pointer" }}
           >
             Logout
           </button>
