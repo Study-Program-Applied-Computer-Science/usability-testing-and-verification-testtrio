@@ -1,6 +1,6 @@
 # 🗓️ Event Scheduling App
 
-**Introduction**: A **full-fledged event scheduling and management application** built using **React, Redux, HTML, CSS, Javascript, db.json, emailjs and other react libraries. 
+**Introduction**: A **full-fledged event scheduling and management application** built using **React, Redux, HTML, CSS, Javascript, db.json, emailjs and other react libraries and successfully tested with Jest, Cypress and Github Actions for continuos Integration. 
 
 **Workflow**: Users must first sign up or log in to access the application's full features. Once authenticated, they can seamlessly create events such as meetings, important calls, and other engagements using our interactive calendar view. The calendar interface provides multiple views—day, week, and month—allowing users to visualize their schedules efficiently. By selecting a specific date, day, or time slot, a pop-up form appears, prompting users to input event details. The application automatically sends invitations to attendees via email when users enter their email addresses and submit the form. Once an event is created, it appears on the calendar with colored tags, making it easy to identify. Users can edit or delete events directly from the calendar. For a more detailed overview, they can navigate to the "My Events" page, where all their created events are listed. If the list grows extensive, the application provides a search and filter functionality, enabling users to quickly locate events by title or date.
 
