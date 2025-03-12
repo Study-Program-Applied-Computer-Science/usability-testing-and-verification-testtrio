@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>12/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">52.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>11/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -159,33 +159,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,7 +200,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,19 +245,19 @@ import interactionPlugin from "@fullcalendar/interaction";
 import CreateEvent from "./CreateEvent";
 import "./Calendar.css";
 &nbsp;
-const Calender = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const dispatch = <span class="cstat-no" title="statement not covered" >useDispatch();</span>
-  const events = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.events || [])</span>;</span>
+const Calender = () =&gt; {
+  const dispatch = useDispatch();
+  const events = useSelector((state) =&gt; state.events || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>;
 &nbsp;
-  const [showEventForm, setShowEventForm] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-  const [selectedDateTime, setSelectedDateTime] = <span class="cstat-no" title="statement not covered" >useState({ date: "", time: "" });</span>
-  const [editingEvent, setEditingEvent] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
+  const [showEventForm, setShowEventForm] = useState(false);
+  const [selectedDateTime, setSelectedDateTime] = useState({ date: "", time: "" });
+  const [editingEvent, setEditingEvent] = useState(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatch(loadEvents());</span>
+  useEffect(() =&gt; {
+    dispatch(loadEvents());
   }, [dispatch]);
 &nbsp;
-  const handleDateClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>nfo) =&gt; {</span>
+  const handleDateClick = <span class="fstat-no" title="function not covered" >(i</span>nfo) =&gt; {
     const selectedDate = <span class="cstat-no" title="statement not covered" >info.dateStr.split("T")[0];</span>
     const selectedTime = <span class="cstat-no" title="statement not covered" >info.dateStr.includes("T") </span>
       ? info.dateStr.split("T")[1].slice(0, 5) 
@@ -268,7 +268,7 @@ const Calender = <span class="cstat-no" title="statement not covered" ><span cla
 <span class="cstat-no" title="statement not covered" >    setShowEventForm(true);</span>
   };
 &nbsp;
-  const handleEventClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>lickInfo) =&gt; {</span>
+  const handleEventClick = <span class="fstat-no" title="function not covered" >(c</span>lickInfo) =&gt; {
     const eventStart = <span class="cstat-no" title="statement not covered" >new Date(clickInfo.event.startStr);</span>
     const eventTime = <span class="cstat-no" title="statement not covered" >eventStart.toTimeString().slice(0, 5);</span>
   
@@ -286,7 +286,7 @@ const Calender = <span class="cstat-no" title="statement not covered" ><span cla
   };
   
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="calendar-container"&gt;
       &lt;FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -308,7 +308,7 @@ const Calender = <span class="cstat-no" title="statement not covered" ><span cla
       /&gt;
 &nbsp;
       {showEventForm &amp;&amp; (
-        &lt;CreateEvent
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;CreateEvent</span>
         isOpen={showEventForm}
         onClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowEventForm(false)}</span>
         selectedDateTime={selectedDateTime} // Ensure this gets passed correctly
@@ -328,7 +328,7 @@ export default Calender;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-12T23:04:22.825Z
+                at 2025-03-12T23:35:45.322Z
             </div>
         <script src="../prettify.js"></script>
         <script>

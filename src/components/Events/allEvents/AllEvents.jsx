@@ -3,8 +3,7 @@ import "./AllEvents.css";
 
 const AllEvents = () => {
   return (
-    <div className="all-events-container">
-      
+    <div className="all-events-container" data-testid="all-events-container">
       <p className="empty-content">No content available yet.</p>
     </div>
   );
