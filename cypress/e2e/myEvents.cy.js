@@ -36,4 +36,47 @@ describe("All tests for mYEvents route tests",()=>{
             expect(text).to.be.oneOf(["Event Details", "Create Event"]);
         });
     });
+    it("should allow editing an event title and saving changes", () => {
+        cy.get(".event-card").first().click();
+        cy.wait(1000);
+        cy.get(".create-event-edit").click();
+        cy.get(".create-event-input").eq(0).clear().type("Bug Fix Updated");
+        cy.wait(1000);
+        cy.get(".create-event-submit").click();
+        cy.wait(2000);
+        cy.get(".event-card").first().contains("Bug Fix Updated").should("exist");
+      });
+
+      it("should filter events correctly by entering date", () => {
+        cy.get(".date-picker").click();
+        cy.wait(500);
+        cy.get(".react-datepicker__day--015").click();
+        cy.wait(2000);
+        cy.get(".event-card").should("have.length.greaterThan", 0);
+        cy.get(".event-card").each(($el) => {
+          cy.wrap($el).contains("3/15/2025").should("exist");
+        });
+      });
+
+      it("it will filter events correctly by time", () => {
+        cy.get(".time-dropdown").select("1");
+        cy.wait(2000);
+        cy.get(".event-card").should("have.length.greaterThan", 0);
+      });
+
+      it("it filters events correctly by AM/PM selection", () => {
+        cy.get(".period-dropdown").select("PM");
+        cy.wait(2000);
+        cy.get(".event-card").should("have.length.greaterThan", 0);
+      });
+
+      it("it should clear the selected date filter", () => {
+        cy.get(".date-picker").click();
+        cy.wait(500);
+        cy.get(".react-datepicker__day--015").click();
+        cy.wait(2000);
+        cy.get(".clear-date-btn").click();
+        cy.wait(2000);
+        cy.get(".event-card").should("have.length.greaterThan", 0);
+      });
 });
