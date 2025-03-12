@@ -23,15 +23,36 @@ describe("Calendar Page Tests", () => {
         cy.wait(2000);
  });
 
- it("should open the event form when clicking a date cell", () => {
+ it("it needs to open the event form when clicking a anydate cell", () => {
     cy.get(".fc-daygrid-day").first().click(); 
+    cy.wait(1000);
     cy.get(".create-event-container").should("be.visible");
+    cy.wait(1000);
   });
 
-  it("should close the form when clicking the back button", () => {
+  it(" now it should close the form when clicking on the back button", () => {
     cy.get(".fc-daygrid-day").first().click();
+    cy.wait(2000);
     cy.get('[data-testid="back-button"]').click();
+    cy.wait(1000);
     cy.get(".create-event-container").should("not.exist");
   });
+
+  it("should update the calendar title when changing views", () => {
+    cy.get(".fc-toolbar-title").then(($titleBefore) => {
+      const initialTitle = $titleBefore.text();
+      
+      cy.get(".fc-next-button").should("be.visible").click();
+      cy.wait(1000);
+      cy.get(".fc-next-button").should("be.visible").click();
+      cy.wait(1000);
+      cy.get(".fc-prev-button").should("be.visible").click();
+      cy.wait(1000);
+      cy.get(".fc-toolbar-title").should(($titleAfter) => {
+        expect($titleAfter.text()).not.to.eq(initialTitle);
+      });
+    });
+  });
+  
 
 });
