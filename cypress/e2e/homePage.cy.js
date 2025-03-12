@@ -1,9 +1,8 @@
 describe("Home Page Tests", () => {
   beforeEach(() => {
-    cy.session("userSession", () => {
     cy.visit("http://localhost:5173/");
   });
-});
+
 
   // renders all h1 tags navbar h1 logo and h1 main title
   it("should render the Home component properly", () => {
