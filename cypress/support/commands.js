@@ -1,25 +1,30 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", () => {
+    cy.visit("http://localhost:5173/"); // ✅ Open Home Page
+  
+    // ✅ Click "Login" button to navigate to the login page
+    cy.contains("button", "Login").click();
+  
+    // ✅ Ensure login page is loaded
+    cy.url().should("include", "/UserLogin");
+    cy.wait(4000); // ✅ Wait for the page to fully load
+  
+    // ✅ Enter credentials
+    cy.get('input[name="username"]').should("be.visible").type("mohith");
+    cy.get('input[name="password"]').should("be.visible").type("mohith");
+    cy.wait(2000);
+    cy.get("button").contains("Sign In").click();
+  
+    // ✅ Ensure successful login
+    cy.url().should("not.include", "/UserLogin");
+  });
+  
+  // ✅ If redirected to login, re-authenticate and continue
+  Cypress.Commands.add("handleAuthRedirect", (targetUrl) => {
+    cy.url().then((url) => {
+      if (url.includes("/UserLogin")) {
+        cy.login(); // ✅ Log in again if redirected
+        cy.visit(targetUrl); // ✅ Redirect back to the intended page
+      }
+    });
+  });
+  
