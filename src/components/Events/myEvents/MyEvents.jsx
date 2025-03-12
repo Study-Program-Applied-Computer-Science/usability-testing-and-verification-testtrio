@@ -24,6 +24,7 @@ const MyEvents = () => {
   useEffect(() => {
     dispatch(loadEvents());
   }, [dispatch]);
+  
 
   // Get user-specific events
   const userEvents = allEvents.filter((event) => event.createdBy === loggedInUser?.email);
@@ -51,11 +52,26 @@ const MyEvents = () => {
   }, [searchTerm, selectedDate, selectedTime, selectedPeriod, allEvents]); // Only updates when filters change
 
   const fetchMoreEvents = () => {
+    console.log("Fetching more events...");
+  
+    if (!hasMore) {
+      console.log("No more events to load!");
+      return;
+    }
+  
     setTimeout(() => {
       const nextEvents = filteredEvents.slice(displayedEvents.length, displayedEvents.length + 5);
+      console.log("Next events:", nextEvents);
+  
+      if (nextEvents.length === 0) {
+        console.log("No more events available.");
+        setHasMore(false);
+        return;
+      }
+  
       setDisplayedEvents((prevEvents) => [...prevEvents, ...nextEvents]);
       setHasMore(displayedEvents.length + nextEvents.length < filteredEvents.length);
-    }, 1000);
+    }, 500);
   };
 
   // Open CreateEvent popup with event details
@@ -76,6 +92,7 @@ const MyEvents = () => {
     dispatch(deleteExistingEvent(eventId));
     setShowEventPopup(false);
   };
+  
 
   return (
     <div className="events-list">
@@ -105,16 +122,19 @@ const MyEvents = () => {
           onChange={(date) => setSelectedDate(date)}
           placeholderText="Select Date"
           className="date-picker"
+          data-testid="date-picker"
         />
       </div>
 
       {selectedDate && (
-        <button className="clear-date-btn" onClick={() => setSelectedDate(null)}>
+        <button data-testid="clear-date-btnn" className="clear-date-btn" onClick={() => setSelectedDate(null)}>
           Clear Date
         </button>
+        
       )}
+      
 
-      <div className="events-container" id="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
+      <div className="events-container" id="scrollableDiv" data-testid="scrollableDiv" style={{ overflowY: "auto", height: "80vh", maxHeight: "Calc(100vh - 100px)" }}>
         {filteredEvents.length === 0 ? (
           <p>No events found.</p>
         ) : (
