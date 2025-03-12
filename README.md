@@ -33,6 +33,7 @@ Features of the Event Scheduling App
 -  **Event Tags & Details** Displays stored events
 -  **Create Event Form** Popup form with details
 -  **Search and Filtering** Searching and filtering events
+-  **Jest Unit Testing** 
 
 
  **Mohith**
@@ -42,13 +43,15 @@ Features of the Event Scheduling App
 -  **Infinite Scroll** For event lists if there are many events
 -  **Continuous Integration** with GitHub Actions
 -  **CRUD of Events** Read or Fetch events on my events page
+-  **Jest Unit and Cypress e2e Testings**
 
 
   **Neubin**
 -  **Edit and Delete Events**  Displayed events on clicking tags with edit and delete event options
 -  **Email Notification**  Attendee gets invitations to their emails
--  **Design and Prototyping** Designed all Prototypes
+-  **Total App Design and Prototyping** Designed all Prototypes
 -  **CRUD Of Events** - Create, Update, Delete events on calender view page
+-  **Jest Unit Testing**
 
 
 
