@@ -13,6 +13,7 @@
     "cypress:open": "cypress open --config-file cypress.config.cjs"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@emailjs/browser": "^4.4.1",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
@@ -23,11 +24,12 @@
     "json": "^11.0.0",
     "json-server": "^1.0.0-beta.3",
     "react": "^19.0.0",
-    "react-datepicker": "^8.1.0",
+    "react-datepicker": "^8.2.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^7.2.0",
+    "save": "^2.9.0",
     "server": "^1.0.41"
   },
   "devDependencies": {
