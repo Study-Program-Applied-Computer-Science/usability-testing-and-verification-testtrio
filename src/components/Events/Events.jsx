@@ -3,7 +3,7 @@ import MyEvents from "./myEvents/MyEvents.jsx";
 import AllEvents from "./allEvents/AllEvents.jsx"; 
 
 const Events = () => {
-  const [activeTab, setActiveTab] = useState("myEvents"); // Declare activeTab state
+  const [activeTab, setActiveTab] = useState("myEvents"); // tells activeTab state
 
   return (
     <div className="events-container">

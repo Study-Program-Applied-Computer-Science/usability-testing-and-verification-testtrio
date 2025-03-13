@@ -34,7 +34,7 @@ const UserLogin = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/UserLogin"); // Redirect to login if logged out
+      navigate("/UserLogin");
     }
   }, [isLoggedIn, navigate]);
 
@@ -86,8 +86,8 @@ const UserLogin = () => {
           localStorage.setItem("isLoggedIn", JSON.stringify(true));
           localStorage.setItem("loggedInUser", JSON.stringify(user));
           setIsLoggedIn(true);
-          navigate("/"); // Redirect to home
-          window.location.reload(); //  Force reload to update Navbar immediately
+          navigate("/");
+          window.location.reload();
         } else {
           alert("Invalid username or password!");
         }
@@ -104,7 +104,7 @@ const UserLogin = () => {
     localStorage.removeItem("loggedInUser");
     alert("Logged out successfully!");
     navigate("/UserLogin", { replace: true });
-    window.location.reload(); //  Force reload to update UI immediately
+    window.location.reload(); 
   };
   
 
@@ -122,7 +122,7 @@ const UserLogin = () => {
         <div className="auth-box">
           {isLoggedIn ? (
             <button
-              onClick={handleLogout}
+              onClick={handleLogout} 
               style={{
                 backgroundColor: "orange",
                 color: "white",

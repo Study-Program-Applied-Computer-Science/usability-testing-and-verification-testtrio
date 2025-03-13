@@ -34,7 +34,7 @@ const Calender = () => {
       // block happened days - review from suhas
     if (selectedDate < today) return;
     
-    // Check if the current view is "dayGridMonth" (Month View)
+    // Check if the current view is Month View
   const calendarApi = info.view.calendar;
   if (calendarApi.view.type === "dayGridMonth") {
     return; 

@@ -29,11 +29,11 @@ const MyEvents = () => {
   // Get user-specific events
   const userEvents = allEvents.filter((event) => event.createdBy === loggedInUser?.email);
 
-  // **Filtering logic**
+  // ffiltering events  logic applied below
   const filteredEvents = userEvents.filter((event) => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
     const eventStartDate = new Date(event.start);
-    const eventHour = eventStartDate.getHours() % 12 || 12; // Convert to 12-hour format
+    const eventHour = eventStartDate.getHours() % 12 || 12;
     const eventPeriod = eventStartDate.getHours() >= 12 ? "PM" : "AM";
     const matchesDate =
       selectedDate && selectedDate instanceof Date
@@ -45,11 +45,11 @@ const MyEvents = () => {
     return matchesSearch && matchesTime && matchesPeriod && matchesDate;
   });
 
-  // **Infinite Scrolling - Load More Events**
+  // below logic is wrapped up with useeffect hook for Infinite Scrolling- firstit will display 5 on scroll next 5
   useEffect(() => {
     setDisplayedEvents(filteredEvents.slice(0, 5)); 
     setHasMore(filteredEvents.length > 5);
-  }, [searchTerm, selectedDate, selectedTime, selectedPeriod, allEvents]); // Only updates when filters change
+  }, [searchTerm, selectedDate, selectedTime, selectedPeriod, allEvents]);
 
   const fetchMoreEvents = () => {
     console.log("Fetching more events...");
@@ -77,17 +77,17 @@ const MyEvents = () => {
   // Open CreateEvent popup with event details
   const handleEventClick = (event) => {
     const eventStart = new Date(event.start);
-    const eventTime = eventStart.toTimeString().slice(0, 5); // Extracts HH:MM format
+    const eventTime = eventStart.toTimeString().slice(0, 5);
   
     setSelectedEvent({
       ...event,
-      time: eventTime, //Ensure time is correctly passed
+      time: eventTime,
     });
   
     setShowEventPopup(true);
   };
 
-  // Handle event deletion & update UI immediately
+  // handles event deletion & update UI immediately
   const handleDeleteEvent = (eventId) => {
     dispatch(deleteExistingEvent(eventId));
     setShowEventPopup(false);
