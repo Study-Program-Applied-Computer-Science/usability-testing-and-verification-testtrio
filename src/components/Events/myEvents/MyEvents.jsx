@@ -29,7 +29,7 @@ const MyEvents = () => {
   // Get user-specific events
   const userEvents = allEvents.filter((event) => event.createdBy === loggedInUser?.email);
 
-  // **Filtering logic**
+  // Filtering logic
   const filteredEvents = userEvents.filter((event) => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
     const eventStartDate = new Date(event.start);
@@ -45,7 +45,7 @@ const MyEvents = () => {
     return matchesSearch && matchesTime && matchesPeriod && matchesDate;
   });
 
-  // **Infinite Scrolling - Load More Events**
+  // Infinite Scrolling - Load More Events
   useEffect(() => {
     setDisplayedEvents(filteredEvents.slice(0, 5)); 
     setHasMore(filteredEvents.length > 5);
