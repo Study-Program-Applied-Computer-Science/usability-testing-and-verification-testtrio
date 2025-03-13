@@ -16,11 +16,12 @@ const Calender = () => {
   const [selectedDateTime, setSelectedDateTime] = useState({ date: "", time: "" });
   const [editingEvent, setEditingEvent] = useState(null);
 
+  //below loading events when comp mounts
   useEffect(() => {
     dispatch(loadEvents());
   }, [dispatch]);
 
-  // after uasable review from suhas
+  // getting todays date to restrict past event cre - after uasable review from suhas
   const today = new Date().toISOString().split("T")[0];
 
   const handleDateClick = (info) => {
@@ -31,7 +32,13 @@ const Calender = () => {
 
 
       // block happened days - review from suhas
-    if (selectedDate < today) return; 
+    if (selectedDate < today) return;
+    
+    // Check if the current view is "dayGridMonth" (Month View)
+  const calendarApi = info.view.calendar;
+  if (calendarApi.view.type === "dayGridMonth") {
+    return; 
+  }
   
     setSelectedDateTime({ date: selectedDate, time: selectedTime });
     setEditingEvent(null);
