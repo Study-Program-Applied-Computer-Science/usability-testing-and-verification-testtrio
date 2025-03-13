@@ -39,7 +39,7 @@ const Calender = () => {
   if (calendarApi.view.type === "dayGridMonth") {
     return; 
   }
-  
+
     setSelectedDateTime({ date: selectedDate, time: selectedTime });
     setEditingEvent(null);
     setShowEventForm(true);
@@ -83,6 +83,14 @@ const Calender = () => {
           hour: "numeric",
           minute: "2-digit",
           hour12: true,
+        }}
+        dayCellContent={(arg) => {
+          const viewType = arg.view.type;
+          return (
+            <div data-testid={`date-${arg.date.toISOString().split("T")[0]}-${viewType}`}>
+              {arg.dayNumberText}
+            </div>
+          );
         }}
       />
 

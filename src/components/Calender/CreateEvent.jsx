@@ -112,7 +112,7 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
 
   return (
     <div className="create-event-overlay">
-      <div className="create-event-container">
+      <div className="create-event-container" data-testid="create-event-container">
       <button className="create-event-back" data-testid="back-button" onClick={onClose}></button>
 
 
@@ -135,11 +135,11 @@ const CreateEvent = ({ isOpen, onClose, selectedDateTime, editingEvent }) => {
 
         {editingEvent && !isEditing ? (
           <div className="button-group">
-            <button className="create-event-edit" onClick={handleEdit}>Edit Event</button>
+            <button data-testid="create-event-form" className="create-event-edit" onClick={handleEdit}>Edit Event</button>
             <button className="create-event-delete" onClick={handleDelete}>Delete Event</button>
           </div>
         ) : (
-          <button className="create-event-submit" onClick={handleSubmit}>
+          <button  className="create-event-submit" onClick={handleSubmit}>
             {editingEvent ? "Save Changes" : "Create Event"}
           </button>
         )}
