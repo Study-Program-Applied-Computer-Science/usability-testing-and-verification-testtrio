@@ -20,11 +20,18 @@ const Calender = () => {
     dispatch(loadEvents());
   }, [dispatch]);
 
+  // after uasable review from suhas
+  const today = new Date().toISOString().split("T")[0];
+
   const handleDateClick = (info) => {
     const selectedDate = info.dateStr.split("T")[0];
     const selectedTime = info.dateStr.includes("T") 
       ? info.dateStr.split("T")[1].slice(0, 5) 
       : "00:00"; 
+
+
+      // block happened days - review from suhas
+    if (selectedDate < today) return; 
   
     setSelectedDateTime({ date: selectedDate, time: selectedTime });
     setEditingEvent(null);
@@ -63,6 +70,8 @@ const Calender = () => {
         dateClick={handleDateClick}
         eventClick={handleEventClick}
         events={events}
+        // this range kills past days active state
+        validRange={{ start: today }} 
         eventTimeFormat={{
           hour: "numeric",
           minute: "2-digit",
@@ -74,7 +83,7 @@ const Calender = () => {
         <CreateEvent
         isOpen={showEventForm}
         onClose={() => setShowEventForm(false)}
-        selectedDateTime={selectedDateTime} // Ensure this gets passed correctly
+        selectedDateTime={selectedDateTime}
         editingEvent={editingEvent}
       />
       
