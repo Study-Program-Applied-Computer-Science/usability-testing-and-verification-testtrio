@@ -1,3 +1,5 @@
+//I have created below custom command approach and calling cy.login() in beforeEach function in all specs, cypress usually run this commands.js and then run individual tests 
+
 Cypress.Commands.add("login", () => {
     cy.visit("http://localhost:5173/");
   
