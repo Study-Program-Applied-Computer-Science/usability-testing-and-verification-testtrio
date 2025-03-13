@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Home from "../../src/components/Home/Home";
 
-// Mocking react-router-dom's useNavigate()
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: jest.fn(),
@@ -19,7 +18,7 @@ describe("Home Component", () => {
     useNavigate.mockReturnValue(mockNavigate);
   });
 
-  // Test if Home component renders correctly
+  // Test if Home component 
   test("renders Home component", () => {
     render(
       <BrowserRouter>
@@ -31,7 +30,7 @@ describe("Home Component", () => {
     expect(screen.getByText(/Stay organized effortlessly/)).toBeInTheDocument();
   });
 
-  // Test if "Get Started" button navigates correctly
+  // Test if "Get Started" button 
   test("navigates to Calendar page when 'Get Started' button is clicked", () => {
     render(
       <BrowserRouter>
@@ -45,7 +44,7 @@ describe("Home Component", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/Calender", { state: { isSignUp: true } });
   });
 
-  // Test if "Access Now" button navigates correctly
+  // Test if "Access Now" button 
   test("navigates to Events page when 'Access Now' button is clicked", () => {
     render(
       <BrowserRouter>
@@ -67,7 +66,7 @@ describe("Home Component", () => {
       </BrowserRouter>
     );
 
-    // Instead of searching for "Footer", check the actual footer content
+   
     expect(screen.getByText(/© 2024 All rights reserved/i)).toBeInTheDocument();
   });
 });

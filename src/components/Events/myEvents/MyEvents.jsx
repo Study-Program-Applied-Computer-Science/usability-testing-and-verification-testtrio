@@ -29,6 +29,7 @@ const MyEvents = () => {
   // Get user-specific events
   const userEvents = allEvents.filter((event) => event.createdBy === loggedInUser?.email);
 
+
   // ffiltering events  logic applied below
   const filteredEvents = userEvents.filter((event) => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
