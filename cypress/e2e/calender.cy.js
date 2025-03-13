@@ -23,15 +23,15 @@ describe("Calendar Page Tests", () => {
         cy.wait(2000);
  });
 
- it("it needs to open the event form when clicking a anydate cell", () => {
-    cy.get(".fc-daygrid-day").first().click(); 
+it("it needs to open the event form when clicking a today cell", () => {
+    cy.get(".fc-daygrid-day").not(".fc-disabled") .filter(":visible").last().should("be.visible").click({ force: true });
     cy.wait(1000);
     cy.get(".create-event-container").should("be.visible");
     cy.wait(1000);
   });
 
   it(" now it should close the form when clicking on the back button", () => {
-    cy.get(".fc-daygrid-day").first().click();
+    cy.get(".fc-daygrid-day").not(".fc-disabled") .filter(":visible").last().should("be.visible").click({ force: true });
     cy.wait(2000);
     cy.get('[data-testid="back-button"]').click();
     cy.wait(1000);
