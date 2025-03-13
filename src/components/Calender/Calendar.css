@@ -86,6 +86,10 @@
   border-radius: 3px;
 }
 
+.fc-event {
+  cursor: pointer;
+}
+
 
 @media (max-width: 1024px) {
   .calendar-container {
