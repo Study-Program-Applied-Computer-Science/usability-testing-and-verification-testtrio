@@ -1,4 +1,4 @@
-# 🗓️ Event Scheduling App
+# Event Scheduling App
 
 **Introduction**: A **full-fledged event scheduling and management application** built using **React, Redux, HTML, CSS, Javascript, db.json, emailjs and other react libraries and successfully tested with Jest, Cypress and Github Actions for continuos Integration. 
 
